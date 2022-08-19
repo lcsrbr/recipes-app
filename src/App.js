@@ -1,13 +1,19 @@
 import React from 'react';
-import './App.css';
-// import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Routes from './routes/Routes';
 
 function App() {
   return (
-    <div className="meals">
-      teste
-    </div>
+    <BrowserRouter>
+      <Provider store={ store }>
+        <div className="meals">
+          <Routes />
+        </div>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
