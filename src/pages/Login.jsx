@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { useDispatch } from 'react-redux';
 import { saveUser } from '../redux/reducer/user';
@@ -51,4 +51,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);

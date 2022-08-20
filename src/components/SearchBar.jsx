@@ -55,6 +55,7 @@ function SearchBar() {
       </label>
       <input
         type="text"
+        data-testid="search-input"
         value={ searchInput }
         onChange={ ({ target }) => setSearchInput(target.value) }
       />

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 function Header() {
+  const [toogle, setToogle] = useState(false);
+
   const dynamicTitle = () => ({
     '/foods': 'Foods',
     '/drinks': 'Drinks',
@@ -29,12 +32,19 @@ function Header() {
         />
       </Link>
       { !dynamicSearchIcon() && (
-        <img
-          src="../images/searchIcon"
-          alt="search icon"
-          data-testid="search-top-btn"
-        />
+        <button
+          type="button"
+          onClick={ () => setToogle((prev) => !prev) }
+        >
+          <img
+            data-testid="search-top-btn"
+            src="../images/searchIcon"
+            alt="search icon"
+          />
+        </button>
+
       ) }
+      {toogle && <SearchBar /> }
     </div>
   );
 }
