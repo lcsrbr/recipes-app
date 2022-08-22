@@ -14,7 +14,7 @@ function Login() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(saveUser({ email, password }));
+    dispatch(saveUser(email));
 
     localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', 1);
