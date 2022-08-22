@@ -4,15 +4,13 @@ const slice = createSlice({
   name: 'user',
   initialState: {
     email: '',
-    password: '',
   },
 
   reducers: {
-    saveUser(state, { email, password }) {
+    saveUser(state, email) {
       return {
         ...state,
         email,
-        password,
       };
     },
   },

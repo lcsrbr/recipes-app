@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const [toogle, setToogle] = useState(false);
@@ -26,7 +28,7 @@ function Header() {
       <h1 data-testid="page-title">{ dynamicTitle() }</h1>
       <Link to="/profile">
         <img
-          src="../images/profileIcon"
+          src={ profileIcon }
           alt="profile icon"
           data-testid="profile-top-btn"
         />
@@ -38,7 +40,7 @@ function Header() {
         >
           <img
             data-testid="search-top-btn"
-            src="../images/searchIcon"
+            src={ searchIcon }
             alt="search icon"
           />
         </button>
