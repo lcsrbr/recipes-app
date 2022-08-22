@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { saveFoodApi } from '../redux/reducer/searchFoodApi';
 import foodApi from '../services/foodApi';
+import cocktailApi from '../services/cocktailApi';
+import { saveCocktailApi } from '../redux/reducer/searchCocktailApi';
 
 function SearchBar() {
   const [searchFilter, setSearchFilter] = useState('Ingredient');
@@ -9,12 +11,26 @@ function SearchBar() {
 
   const dispatch = useDispatch();
 
+  // const fetApi = (pathname) => ({
+  //   '/foods': foodApi(searchFilter, searchInput)
+  //     .then((item) => dispatch(saveFoodApi(item))),
+  //   '/drinks': cocktailApi(searchFilter, searchInput)
+  //     .then((item) => dispatch(saveCocktailApi(item))),
+  // })[pathname];
+
   const getSearchFoodApi = () => {
     if (searchFilter === 'First-letter' && searchInput.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
-    foodApi(searchFilter, searchInput)
-      .then((item) => dispatch(saveFoodApi(item)));
+    if (window.location.pathname === '/foods') {
+      foodApi(searchFilter, searchInput)
+        .then((item) => dispatch(saveFoodApi(item)));
+    }
+    if (window.location.pathname === '/drinks') {
+      cocktailApi(searchFilter, searchInput)
+        .then((item) => dispatch(saveCocktailApi(item)));
+    }
+    // fetApi(window.location.pathname);
   };
 
   return (
