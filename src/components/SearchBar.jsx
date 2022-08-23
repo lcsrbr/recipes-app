@@ -11,26 +11,19 @@ function SearchBar() {
 
   const dispatch = useDispatch();
 
-  // const fetApi = (pathname) => ({
-  //   '/foods': foodApi(searchFilter, searchInput)
-  //     .then((item) => dispatch(saveFoodApi(item))),
-  //   '/drinks': cocktailApi(searchFilter, searchInput)
-  //     .then((item) => dispatch(saveCocktailApi(item))),
-  // })[pathname];
+  const getApiFood = (local) => local === '/foods' && foodApi(searchFilter, searchInput)
+    .then((item) => dispatch(saveFoodApi(item)));
+
+  const getApiCocktail = (local) => local === '/drinks'
+  && cocktailApi(searchFilter, searchInput)
+    .then((item) => dispatch(saveCocktailApi(item)));
 
   const getSearchFoodApi = () => {
     if (searchFilter === 'First-letter' && searchInput.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
-    if (window.location.pathname === '/foods') {
-      foodApi(searchFilter, searchInput)
-        .then((item) => dispatch(saveFoodApi(item)));
-    }
-    if (window.location.pathname === '/drinks') {
-      cocktailApi(searchFilter, searchInput)
-        .then((item) => dispatch(saveCocktailApi(item)));
-    }
-    // fetApi(window.location.pathname);
+    getApiFood(window.location.pathname);
+    getApiCocktail(window.location.pathname);
   };
 
   return (

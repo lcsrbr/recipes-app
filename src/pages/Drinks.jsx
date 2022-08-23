@@ -3,16 +3,21 @@ import { useSelector } from 'react-redux';
 import { Route, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
+const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+const maxLength = 12;
+
 function Drinks() {
   const storageCocktails = useSelector(
     ({ searchCocktailApi }) => searchCocktailApi.cocktailApi,
   );
   const history = useHistory();
-  console.log(storageCocktails);
-  if (storageCocktails.length === 1) {
+
+  if (storageCocktails === null) global.alert(alert);
+
+  if (storageCocktails && storageCocktails.length === 1) {
     history.push(`/drinks/${storageCocktails[0].idDrink}`);
   }
-  const maxLength = 12;
+
   return (
     <div>
       <Route exact path="/drinks" component={ Header } />

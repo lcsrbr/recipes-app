@@ -1,83 +1,155 @@
 import React from "react";
-// import App from '../App';
+import { render, screen, waitFor } from '@testing-library/react'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
+import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from "./helpers/renderWithRouter";
-import Header from "../components/Header";
 import App from "../App";
+import store from '../redux/store'
+import { Provider } from 'react-redux';
+import { renderWithRouterAndRedux } from "./helpers/renderWith";
+import Foods from "../pages/Foods";
+
+// beforeEach(() => {
+//   fetch.mockClear();
+// });
 
 describe('teste do header', () => {
  it('teste', () => {
-const {history, getByTestId } = renderWithRouter(<Header />)
+   const history = createMemoryHistory()
+   history.push('/foods')
+   render(
+     <Provider store={store}>
+       <Router history={history}>
+         <App />
+       </Router>,
+     </Provider>
+   )
 
-   const foods = getByTestId('page-title');
-   const searchIcon = getByTestId('search-top-btn');
-   const profileIco = getByTestId('profile-top-btn');
+   const foods = screen.getByTestId('page-title');
+   const searchIcon = screen.getByTestId('search-top-btn');
+   const profileIco = screen.getByTestId('profile-top-btn');
 
    expect(foods).toBeDefined();
    expect(searchIcon).toBeDefined();
    expect(profileIco).toBeDefined();
 
    userEvent.click(searchIcon);
-
-   const ingerdient = getByTestId('ingredient-search-radio');
-   const name = getByTestId('name-search-radio');
-   const firstLetter = getByTestId('first-letter-search-radio');
-   const inpuText = getByTestId('search-input');
-   const search = getByTestId('exec-search-btn');
+   
+   const ingerdient = screen.getByTestId('ingredient-search-radio');
+   const name = screen.getByTestId('name-search-radio');
+   const firstLetter = screen.getByTestId('first-letter-search-radio');
+   const inpuText = screen.getByTestId('search-input');
+   const search = screen.getByTestId('exec-search-btn');
 
    expect(ingerdient).toBeDefined();
    expect(name).toBeDefined();
    expect(firstLetter).toBeDefined();
    expect(inpuText).toBeDefined();
    expect(search).toBeDefined();
-
+   
    userEvent.click(firstLetter);
    expect(firstLetter).toBeChecked()
    userEvent.click(ingerdient);
    expect(ingerdient).toBeChecked()
    userEvent.click(name);
    expect(name).toBeChecked()
-
+   
    userEvent.type(inpuText, 'cake')
    expect(inpuText).toHaveValue('cake')
    userEvent.click(search);
   });
-  it('testa /food', () => {
-    const { history, getByTestId } = renderWithRouter(<App />)
 
-    const buttonEnter = getByTestId('login-submit-btn');
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
-
-    userEvent.type(emailInput, 'email@email.com');
-    userEvent.type(passwordInput, '1234567');
-    userEvent.click(buttonEnter);
-
-    const searchIcon = getByTestId('search-top-btn');
+  it('testa /food', async() => {
+    const history = createMemoryHistory()
+    history.push('/foods')
+    render(
+      <Provider store={store}>
+      <Router history={history}>
+        <App />
+      </Router>,
+      </Provider>
+    )
+    const searchIcon = screen.getByTestId('search-top-btn');
     userEvent.click(searchIcon);
 
-    const ingerdient = getByTestId('ingredient-search-radio');
-    const name = getByTestId('name-search-radio');
-    const firstLetter = getByTestId('first-letter-search-radio');
-    const inpuText = getByTestId('search-input');
-    const search = getByTestId('exec-search-btn');
+    const ingerdient = screen.getByTestId('ingredient-search-radio');
+    const name = screen.getByTestId('name-search-radio');
+    const firstLetter = screen.getByTestId('first-letter-search-radio');
+    const inpuText = screen.getByTestId('search-input');
+    const search = screen.getByTestId('exec-search-btn');
 
     expect(ingerdient).toBeDefined();
     expect(name).toBeDefined();
     expect(firstLetter).toBeDefined();
     expect(inpuText).toBeDefined();
     expect(search).toBeDefined();
-
-    userEvent.click(firstLetter);
-    expect(firstLetter).toBeChecked()
-    userEvent.click(ingerdient);
-    expect(ingerdient).toBeChecked()
+    
     userEvent.click(name);
-    expect(name).toBeChecked()
 
     userEvent.type(inpuText, 'cake')
     expect(inpuText).toHaveValue('cake')
     userEvent.click(search);
 
+    waitFor(() => expect(screen.findAllByAltText(/cake/i)).toHaveLength(12))
+    // expect(await screen.findAllByAltText(/cake/i)).toHaveLength(12)
   })
+
+  it('testea alert', () => {
+    global.alert = jest.fn()
+    const history = createMemoryHistory()
+    history.push('/foods')
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>,
+      </Provider>
+    )
+
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
+
+    const firstLetter = screen.getByTestId('first-letter-search-radio');
+    const inpuText = screen.getByTestId('search-input');
+    const search = screen.getByTestId('exec-search-btn');
+
+    userEvent.click(firstLetter);
+    userEvent.type(inpuText, 'texto');
+    userEvent.click(search)
+      
+    const alert = 'Your search must have only 1 (one) character';
+    expect(global.alert).toBeCalledWith(alert)
+  })
+
+  // global.fetch = jest.fn(() => Promise.resolve({
+  //   json: () => Promise.resolve(),
+  // }));
+
+  it('testa /drinks', async() => {
+    const history = createMemoryHistory()
+    history.push('/drinks')
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>,
+      </Provider>
+    );
+    
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
+
+    const name = screen.getByTestId('name-search-radio');
+    const inpuText = screen.getByTestId('search-input');
+    const search = screen.getByTestId('exec-search-btn');
+
+    userEvent.click(name);
+
+    userEvent.type(inpuText, 'bloody')
+    userEvent.click(search);
+
+    waitFor(() => expect(screen.findAllByAltText(/bloody/i)).toHaveLength(3))
+  })
+
 })
