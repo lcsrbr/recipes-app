@@ -1,15 +1,28 @@
 import React from "react";
 import App from '../App';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from "./helpers/renderWithRouter";
+import { render, screen } from '@testing-library/react'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
+import '@testing-library/jest-dom'
+import store from '../redux/store'
+import { Provider } from 'react-redux';
 
 describe('Tests the Login page', () => {
   it('Should test the Login page', () => {
-    const {history, getByTestId, getByRole } = renderWithRouter(<App />);
+    const history = createMemoryHistory()
+    history.push('/')
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>,
+      </Provider>
+    )
 
-    const buttonEnter = getByTestId('login-submit-btn');
-    const emailInput = getByTestId('email-input');
-    const passwordInput = getByTestId('password-input');
+    const buttonEnter = screen.getByTestId('login-submit-btn');
+    const emailInput = screen.getByTestId('email-input');
+    const passwordInput = screen.getByTestId('password-input');
 
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
@@ -24,6 +37,6 @@ describe('Tests the Login page', () => {
     userEvent.type(passwordInput, '1234567');
 
     expect(buttonEnter).toBeEnabled();
-    userEvent.click(getByTestId('login-submit-btn'));
+    userEvent.click(screen.getByTestId('login-submit-btn'));
   })
 })

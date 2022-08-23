@@ -3,14 +3,18 @@ import { useSelector } from 'react-redux';
 import { Route, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
+const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+const maxLength = 12;
+
 function Foods() {
   const storageFoods = useSelector(({ searchFoodApi }) => searchFoodApi.foodApi);
   const history = useHistory();
 
-  if (storageFoods.length === 1) {
+  if (storageFoods === null) global.alert(alert);
+
+  if (storageFoods && storageFoods.length === 1) {
     history.push(`/foods/${storageFoods[0].idMeal}`);
   }
-  const maxLength = 12;
 
   return (
     <div>
