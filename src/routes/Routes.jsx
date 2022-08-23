@@ -12,7 +12,10 @@ function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/foods/:id/in-progress" component={ Foods } />
+      <Route
+        path="/foods/:id/in-progress"
+        render={ (props) => <RecipeDetails { ...props } /> }
+      />
       <Route
         exact
         path="/foods/:id"
@@ -21,7 +24,10 @@ function Routes() {
         }
       />
       <Route exact path="/foods" component={ Foods } />
-      <Route exact path="/drinks/:id/in-progress" component={ Drinks } />
+      <Route
+        path="/drinks/:id/in-progress"
+        render={ (props) => <RecipeDetails { ...props } /> }
+      />
       <Route
         exact
         path="/drinks/:id"
