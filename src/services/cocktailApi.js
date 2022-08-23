@@ -16,6 +16,9 @@ const cocktailApi = (radio, search) => {
   if (radio === 'First-letter') {
     return getApi(`search.php?f=${search}`);
   }
+  if (radio === 'Categories') {
+    return getApi(`filter.php?c=${search}`);
+  }
 };
 
 export default cocktailApi;
