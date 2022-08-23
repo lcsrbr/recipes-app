@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
 import recipeDetailsApi from '../services/recipeDetailsApi';
 import recommendationsApi from '../services/recommendationsApi';
@@ -9,6 +10,7 @@ function RecipeDetails({ match }) {
   const [details, setDetails] = useState(null);
   const [recom, setRecom] = useState(null);
   const carousel = useRef(null);
+  const history = useHistory();
 
   useEffect(() => {
     const getApi = async () => {
@@ -25,7 +27,6 @@ function RecipeDetails({ match }) {
 
   const strMeasure = details
     && Object.keys(details).filter((item) => item.includes('strMeasure'));
-
   return (
     <div className="container">
       {details && (
@@ -117,6 +118,9 @@ function RecipeDetails({ match }) {
           type="button"
           data-testid="start-recipe-btn"
           className="StartRecipe"
+          onClick={ () => {
+            history.push(`${window.location.pathname}/in-progress`);
+          } }
         >
           {!localStorage.getItem('inProgressRecipes')
             ? 'Start Recipe' : 'Continue Recipe'}
