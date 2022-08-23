@@ -113,6 +113,20 @@ function RecipeDetails({ match }) {
 
         </section>
       )}
+
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        favoritar
+      </button>
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        compartilhar
+      </button>
+
       {!localStorage.getItem('doneRecipes') && (
         <button
           type="button"
