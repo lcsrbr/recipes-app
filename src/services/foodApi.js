@@ -1,9 +1,7 @@
 const getApi = async (query) => {
   const url = `https://www.themealdb.com/api/json/v1/1/${query}`;
-  console.log('food', url);
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
   return data.meals;
 };
 
