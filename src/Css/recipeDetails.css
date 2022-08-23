@@ -1,0 +1,31 @@
+.container {
+  max-width: 75vw;
+}
+
+.container .carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  text-align: center;
+}
+
+.container .carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.container .carousel .item {
+  background-color: white;
+  border-radius: 16px;
+  flex: none;
+  margin: 2px;
+  padding: 2px;
+  width: 150px;
+}
+
+.container .carousel .item .image {
+  border-radius: 16px;
+  height: 70%;
+  object-fit: cover;
+  width: 40%;
+}
+

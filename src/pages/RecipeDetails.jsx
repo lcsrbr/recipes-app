@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import recipeDetailsApi from '../services/recipeDetailsApi';
 import recommendationsApi from '../services/recommendationsApi';
+import '../Css/recipeDetails.css';
 
+const seis = 6;
 function RecipeDetails({ match }) {
   const [details, setDetails] = useState(null);
+  const [recom, setRecom] = useState(null);
+  const carousel = useRef(null);
+
   useEffect(() => {
     const getApi = async () => {
       const response = await recipeDetailsApi(match.params.id, window.location.pathname);
       setDetails(response);
       const recommendations = await recommendationsApi(window.location.pathname);
-      console.log(recommendations);
+      setRecom(recommendations.slice(0, seis));
     };
     getApi();
   }, [match.params.id]);
@@ -22,7 +27,7 @@ function RecipeDetails({ match }) {
     && Object.keys(details).filter((item) => item.includes('strMeasure'));
 
   return (
-    <div>
+    <div className="container">
       {details && (
         <section>
           <h2 data-testid="recipe-title">
@@ -39,6 +44,7 @@ function RecipeDetails({ match }) {
               ? details.strCategory
               : details.strAlcoholic}
           </p>
+
           <div>
             <h4>ingredientes</h4>
             {[...strIngredient].map((ing, index) => (
@@ -54,12 +60,51 @@ function RecipeDetails({ match }) {
               )
             ))}
           </div>
+
           <div>
             <h4>instruções</h4>
             <p data-testid="instructions">{details.strInstructions}</p>
           </div>
-          {/* <p>recomendações</p> */}
-          <p data-testid="0-recomendation-card">recomendações</p>
+
+          <p>recomendações</p>
+          <div className="carousel" ref={ carousel }>
+            {recom && recom.map((item, index) => (
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                key={ index }
+                className="item"
+              >
+                <p
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {item.strMeal || item.strDrink}
+                </p>
+                <img
+                  src={ item.strMealThumb || item.strDrinkThumb }
+                  alt="foto"
+                  data-testid="recipe-photo"
+                  className="image"
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={ () => {
+              carousel.current.scrollLeft -= carousel.current.offsetWidth;
+            } }
+          >
+            Left
+          </button>
+          <button
+            type="button"
+            onClick={ () => {
+              carousel.current.scrollLeft += carousel.current.offsetWidth;
+            } }
+          >
+            Right
+          </button>
+
           {window.location.pathname.includes('/foods') && (
             <video data-testid="video">
               <track kind="captions" src={ details.strYoutube } />
