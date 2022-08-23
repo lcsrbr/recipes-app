@@ -112,13 +112,14 @@ function RecipeDetails({ match }) {
 
         </section>
       )}
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="StartRecipe"
-      >
-        Start Recipe
-      </button>
+      {!localStorage.getItem('doneRecipes') && (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="StartRecipe"
+        >
+          Start Recipe
+        </button>)}
     </div>
   );
 }
