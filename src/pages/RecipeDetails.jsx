@@ -1,26 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-// import YouTube from 'react-youtube';
 import recipeDetailsApi from '../services/recipeDetailsApi';
+import recommendationsApi from '../services/recommendationsApi';
 
 function RecipeDetails({ match }) {
   const [details, setDetails] = useState(null);
-  const getApi = async () => {
-    const response = await recipeDetailsApi(match.params.id, window.location.pathname);
-    setDetails(response);
-  };
   useEffect(() => {
+    const getApi = async () => {
+      const response = await recipeDetailsApi(match.params.id, window.location.pathname);
+      setDetails(response);
+      const recommendations = await recommendationsApi(window.location.pathname);
+      console.log(recommendations);
+    };
     getApi();
-  }, []);
-
-  // const opts = {
-  //   height: '390',
-  //   width: '640',
-  //   playerVars: {
-  //     ply: details && details.strYoutube,
-  //     autoplay: 1,
-  //   },
-  // };
+  }, [match.params.id]);
 
   const strIngredient = details
   && Object.keys(details).filter((item) => item.includes('strIngredient'));
