@@ -7,12 +7,6 @@ import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import App from '../App';
 import store from '../redux/store';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
-import Foods from '../pages/Foods';
-
-// beforeEach(() => {
-//   fetch.mockClear();
-// });
 
 describe('teste do header', () => {
   afterEach(() => jest.clearAllMocks());
@@ -42,14 +36,7 @@ describe('teste do header', () => {
     userEvent.click(search);
 
     expect(await screen.findAllByAltText(/cake/i)).toHaveLength(12);
-    console.log(window.location.pathname);
-    console.log(store.getState());
 
-    // await waitFor(async () => {
-    //   expect(await screen.findAllByAltText(/bloody/i)).toHaveLength(2);
-    //   console.log(window.location.pathname);
-    //   console.log(store.getState());
-    // });
   });
 
   it('testa /drinks', async () => {
@@ -77,14 +64,6 @@ describe('teste do header', () => {
     userEvent.click(search);
 
     expect(await screen.findAllByAltText(/bloody/i)).toHaveLength(3);
-    console.log(window.location.pathname);
-    console.log(store.getState());
-
-    // await waitFor(async () => {
-    //   expect(await screen.findAllByAltText(/bloody/i)).toHaveLength(2);
-    //   console.log(window.location.pathname);
-    //   console.log(store.getState());
-    // });
   });
 
   it('teste', () => {
@@ -166,7 +145,6 @@ describe('teste do header', () => {
     userEvent.click(search);
 
     waitFor(() => expect(screen.findAllByAltText(/cake/i)).toHaveLength(12));
-    // expect(await screen.findAllByAltText(/cake/i)).toHaveLength(12)
   });
 
   it('testea alert', () => {
@@ -197,10 +175,6 @@ describe('teste do header', () => {
     expect(global.alert).toBeCalledWith(alert);
   });
 
-  // global.fetch = jest.fn(() => Promise.resolve({
-  //   json: () => Promise.resolve(),
-  // }));
-
   it('testa /drinks', async () => {
     const history = createMemoryHistory();
     history.push('/drinks');
@@ -230,7 +204,5 @@ describe('teste do header', () => {
       json: () => Promise.resolve({ foodApi: 'Leblebi Soup' }),
     }));
 
-    // await waitFor(() => expect(screen.findAllByAltText(/bloody/i)).toHaveLength(55));
-    console.log(store.getState());
   });
 });
