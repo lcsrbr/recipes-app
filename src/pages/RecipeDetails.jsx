@@ -112,6 +112,13 @@ function RecipeDetails({ match }) {
 
         </section>
       )}
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="StartRecipe"
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }
@@ -125,3 +132,5 @@ RecipeDetails.propTypes = {
 };
 
 export default RecipeDetails;
+
+// para fazer o carousel usei esse video https://www.youtube.com/watch?v=cX0N3TNxumw

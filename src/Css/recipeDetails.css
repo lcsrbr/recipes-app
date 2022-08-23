@@ -29,3 +29,8 @@
   width: 40%;
 }
 
+.StartRecipe {
+  bottom: 0;
+  position: fixed;
+}
+
