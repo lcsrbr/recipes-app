@@ -118,7 +118,8 @@ function RecipeDetails({ match }) {
           data-testid="start-recipe-btn"
           className="StartRecipe"
         >
-          Start Recipe
+          {!localStorage.getItem('inProgressRecipes')
+            ? 'Start Recipe' : 'Continue Recipe'}
         </button>)}
     </div>
   );
