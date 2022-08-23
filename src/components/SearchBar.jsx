@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { saveFoodApi } from '../redux/reducer/searchFoodApi';
 import foodApi from '../services/foodApi';
 import cocktailApi from '../services/cocktailApi';
@@ -10,20 +11,17 @@ function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
 
   const dispatch = useDispatch();
-
-  const getApiFood = (local) => local === '/foods' && foodApi(searchFilter, searchInput)
-    .then((item) => dispatch(saveFoodApi(item)));
-
-  const getApiCocktail = (local) => local === '/drinks'
-  && cocktailApi(searchFilter, searchInput)
-    .then((item) => dispatch(saveCocktailApi(item)));
+  const history = useHistory();
 
   const getSearchFoodApi = () => {
     if (searchFilter === 'First-letter' && searchInput.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
-    getApiFood(window.location.pathname);
-    getApiCocktail(window.location.pathname);
+    return history.location.pathname === '/foods' ? foodApi(searchFilter, searchInput)
+      .then((item) => dispatch(saveFoodApi(item)))
+      : cocktailApi(searchFilter, searchInput)
+        .then((item) => dispatch(saveCocktailApi(item)));
+    // getApiCocktail(window.location.pathname);
   };
 
   return (
