@@ -4,23 +4,29 @@ import React, { useState, useEffect, useRef } from 'react';
 import recipeDetailsApi from '../services/recipeDetailsApi';
 import recommendationsApi from '../services/recommendationsApi';
 import '../Css/recipeDetails.css';
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 const seis = 6;
+const seconds = 3000;
 function RecipeDetails({ match }) {
   const [details, setDetails] = useState(null);
   const [recom, setRecom] = useState(null);
+  const [copied, setCopied] = useState(false);
+
   const carousel = useRef(null);
   const history = useHistory();
 
   useEffect(() => {
     const getApi = async () => {
-      const response = await recipeDetailsApi(match.params.id, window.location.pathname);
+      const response = await recipeDetailsApi(match.params.id, history.location.pathname);
       setDetails(response);
-      const recommendations = await recommendationsApi(window.location.pathname);
+      const recommendations = await recommendationsApi(history.location.pathname);
       setRecom(recommendations.slice(0, seis));
     };
     getApi();
-  }, [match.params.id]);
+  }, [match.params.id, history.location.pathname]);
 
   const strIngredient = details
   && Object.keys(details).filter((item) => item.includes('strIngredient'));
@@ -41,7 +47,7 @@ function RecipeDetails({ match }) {
             data-testid="recipe-photo"
           />
           <p data-testid="recipe-category">
-            {window.location.pathname.includes('/foods')
+            {history.location.pathname.includes('/foods')
               ? details.strCategory
               : details.strAlcoholic}
           </p>
@@ -106,25 +112,31 @@ function RecipeDetails({ match }) {
             Right
           </button>
 
-          {window.location.pathname.includes('/foods') && (
+          {history.location.pathname.includes('/foods') && (
             <video data-testid="video">
               <track kind="captions" src={ details.strYoutube } />
             </video>)}
 
         </section>
       )}
-
+      {copied && <p> Link copied!</p> }
       <button
         type="button"
         data-testid="favorite-btn"
       >
         favoritar
       </button>
+
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => {
+          copy(`http://localhost:3000${history.location.pathname}`);
+          setCopied(true);
+          setTimeout(() => setCopied(false), seconds);
+        } }
       >
-        compartilhar
+        <img src={ shareIcon } alt="compartilhar" />
       </button>
 
       {!localStorage.getItem('doneRecipes') && (
@@ -133,7 +145,7 @@ function RecipeDetails({ match }) {
           data-testid="start-recipe-btn"
           className="StartRecipe"
           onClick={ () => {
-            history.push(`${window.location.pathname}/in-progress`);
+            history.push(`${history.location.pathname}/in-progress`);
           } }
         >
           {!localStorage.getItem('inProgressRecipes')
