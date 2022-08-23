@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const alert = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -34,6 +35,7 @@ function Foods() {
           </div>
         ))}
       </div>
+      <Route exact path="/foods" component={ Footer } />
     </div>
   );
 }
