@@ -30,7 +30,7 @@ function Foods() {
     );
     renderFoods();
     getCategoriesApi();
-  }, []);
+  }, [dispatch]);
 
   const categoriesFunc = () => {
     const maxLength2 = 5;
