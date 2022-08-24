@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import clipboardCopy from 'clipboard-copy';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState(null);
@@ -7,6 +10,8 @@ function FavoriteRecipes() {
   useEffect(() => {
     setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')));
   }, []);
+
+  // 
 
   return (
     <div>
@@ -33,30 +38,36 @@ function FavoriteRecipes() {
       </button>
       <section>
         {favorites && favorites
-          .map(({ id, name, category, image, nationality }, index) => (
-            <div key={ id } data-testid={ `${index}-${name}-horizontal-tag` }>
+          .map((data, index) => (
+            <div key={ data.id } data-testid={ `${index}-${data.name}-horizontal-tag` }>
               <img
                 data-testid={ `${index}-horizontal-image` }
-                src={ image }
-                alt={ name }
+                src={ data.image }
+                alt={ data.name }
                 width="150px"
               />
-              <p data-testid={ `${index}-horizontal-name` }>{name}</p>
-              <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-              <p data-testid={ `${index}-horizontal-top-text` }>{nationality}</p>
+              <p data-testid={ `${index}-horizontal-name` }>{data.name}</p>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {data.type === 'food'
+                  ? `${data.nationality} - ${data.category}` : data.alcoholicOrNot}
+              </p>
               <p data-testid={ `${index}-horizontal-done-date` }>{}</p>
-              <button
+
+              <input
+                type="image"
+                src={ shareIcon }
+                alt={ data.name }
                 data-testid={ `${index}-horizontal-share-btn` }
-                type="button"
-              >
-                Compartilhar
-              </button>
-              <button
+                // onClick={() => handleShare()}
+              />
+              <input
+                type="image"
+                src={ blackHeartIcon }
+                alt={ data.name }
                 data-testid={ `${index}-horizontal-favorite-btn` }
-                type="button"
-              >
-                Favoritar
-              </button>
+              />
             </div>
           ))}
       </section>
