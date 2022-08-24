@@ -26,6 +26,12 @@ function RecipeDetails({ match }) {
       setDetails(response);
       const recommendations = await recommendationsApi(history.location.pathname);
       setRecom(recommendations.slice(0, seis));
+      const verifyFavorite = () => {
+        const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        if (!getlocal) return false;
+        return getlocal.some(({ id }) => id === response.idMeal || response.idDrink);
+      };
+      setFavotite(verifyFavorite());
     };
     getApi();
   }, [match.params.id, history.location.pathname]);
@@ -54,20 +60,10 @@ function RecipeDetails({ match }) {
       return setFavotite(!isFavorite);
     }
     localStorage.setItem('favoriteRecipes', JSON.stringify(getlocal
-      .filter(({ id }) => id !== details.idMeal || details.idDrink)));
-    setFavotite(!isFavorite);
+      .filter(({ id }) => id !== (details.idDrink || details.idMeal))));
+    return setFavotite(!isFavorite);
   };
 
-  useEffect(() => {
-    const verifyFavorite = () => {
-      const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (!getlocal) return false;
-      return getlocal.every(({ id }) => id === details.idMeal || details.idDrink);
-    };
-    if (details) {
-      setFavotite(verifyFavorite());
-    }
-  }, [details]);
   return (
     <div className="container">
       {details && (
@@ -157,7 +153,8 @@ function RecipeDetails({ match }) {
       {copied && <p> Link copied!</p> }
       <button
         type="button"
-        onClick={ saveFavoriteLocalStorage }
+        onClick={ details && saveFavoriteLocalStorage }
+        data-testId="fav-btn"
       >
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
