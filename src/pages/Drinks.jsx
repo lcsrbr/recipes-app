@@ -32,7 +32,7 @@ function Drinks() {
     };
     renderDrinks();
     getCategoriesApi();
-  }, []);
+  }, [dispatch]);
 
   const categoriesFunc = () => {
     const maxLength2 = 5;
