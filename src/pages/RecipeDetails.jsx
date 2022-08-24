@@ -64,15 +64,6 @@ function RecipeDetails({ match }) {
     return setFavotite(!isFavorite);
   };
 
-  // useEffect(() => {
-  //   const verifyFavorite = () => {
-  //     const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //     if (!getlocal) return false;
-  //     return getlocal.some(({ id }) => id === details.idMeal || details.idDrink);
-  //   };
-  //   setFavotite(verifyFavorite());
-  // }, []);
-
   return (
     <div className="container">
       {details && (
