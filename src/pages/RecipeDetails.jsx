@@ -6,7 +6,7 @@ import recommendationsApi from '../services/recommendationsApi';
 import '../Css/recipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 
-const copy = require('clipboard-copy');
+// const copy = require('clipboard-copy');
 
 const seis = 6;
 const seconds = 3000;
@@ -148,7 +148,7 @@ function RecipeDetails({ match }) {
         type="button"
         data-testid="share-btn"
         onClick={ () => {
-          copy(`http://localhost:3000${history.location.pathname}`);
+          // copy(`http://localhost:3000${history.location.pathname}`);
           setCopied(true);
           setTimeout(() => setCopied(false), seconds);
         } }
