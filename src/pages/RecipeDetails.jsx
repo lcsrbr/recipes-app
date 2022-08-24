@@ -17,7 +17,6 @@ function RecipeDetails({ match }) {
 
   const carousel = useRef(null);
   const history = useHistory();
-
   useEffect(() => {
     const getApi = async () => {
       const response = await recipeDetailsApi(match.params.id, history.location.pathname);
@@ -33,6 +32,23 @@ function RecipeDetails({ match }) {
 
   const strMeasure = details
     && Object.keys(details).filter((item) => item.includes('strMeasure'));
+
+  const saveFavoriteLocalStorage = () => {
+    const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const local = [...(getlocal || []), {
+      id: details.idMeal || details.idDrink,
+      type: history.location.pathname.includes('/foods')
+        ? 'food'
+        : 'drink',
+      nationality: details.strArea || '',
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic || '',
+      name: details.strMeal || details.strDrink,
+      image: details.strMealThumb || details.strDrinkThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+  };
+
   return (
     <div className="container">
       {details && (
@@ -123,6 +139,7 @@ function RecipeDetails({ match }) {
       <button
         type="button"
         data-testid="favorite-btn"
+        onClick={ saveFavoriteLocalStorage }
       >
         favoritar
       </button>
