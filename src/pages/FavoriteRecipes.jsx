@@ -65,7 +65,7 @@ function FavoriteRecipes() {
         Drinks
       </button>
       <section>
-        {copied && <p>Link copied!</p>}
+        {copied && <p data-testid="Link-copied">Link copied!</p>}
         {favorites && favorites
           .filter((data) => (!filter ? data : data.type === filter))
           .map((data, index) => (
