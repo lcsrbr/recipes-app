@@ -5,6 +5,8 @@ import recipeDetailsApi from '../services/recipeDetailsApi';
 import recommendationsApi from '../services/recommendationsApi';
 import '../Css/recipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -14,6 +16,7 @@ function RecipeDetails({ match }) {
   const [details, setDetails] = useState(null);
   const [recom, setRecom] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [isFavorite, setFavotite] = useState(false);
 
   const carousel = useRef(null);
   const history = useHistory();
@@ -46,9 +49,25 @@ function RecipeDetails({ match }) {
       name: details.strMeal || details.strDrink,
       image: details.strMealThumb || details.strDrinkThumb,
     }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+    if (!isFavorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+      return setFavotite(!isFavorite);
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(getlocal
+      .filter(({ id }) => id !== details.idMeal || details.idDrink)));
+    setFavotite(!isFavorite);
   };
 
+  useEffect(() => {
+    const verifyFavorite = () => {
+      const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (!getlocal) return false;
+      return getlocal.every(({ id }) => id === details.idMeal || details.idDrink);
+    };
+    if (details) {
+      setFavotite(verifyFavorite());
+    }
+  }, [details]);
   return (
     <div className="container">
       {details && (
@@ -138,10 +157,13 @@ function RecipeDetails({ match }) {
       {copied && <p> Link copied!</p> }
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ saveFavoriteLocalStorage }
       >
-        favoritar
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="fav"
+          data-testid="favorite-btn"
+        />
       </button>
 
       <button
