@@ -99,4 +99,21 @@ describe('Tests the Profile page', () => {
     userEvent.click(logout);
     expect(history.location.pathname).toBe('/')
   });
+  it('empty storage location', () => {
+    const history = createMemoryHistory()
+    history.push('/profile')
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>,
+      </Provider>
+    )
+
+    const email = screen.getByTestId('profile-email');
+
+    expect(email).toBeDefined();
+
+    expect(email).toHaveTextContent('Email:');
+  });
 })
