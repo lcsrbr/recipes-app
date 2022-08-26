@@ -106,7 +106,6 @@ describe('teste do localStorage', () => {
     const recipeTitle = await screen.findByTestId('recipe-title');
     const recipePhoto = await screen.findByTestId('recipe-photo');
     const favImg = await screen.findByAltText('fav');
-    console.log(localStorage.favoriteRecipes);
     expect(recipeTitle).toBeInTheDocument();
     expect(recipePhoto).toBeInTheDocument();
 
@@ -114,16 +113,57 @@ describe('teste do localStorage', () => {
     expect(localStorage.favoriteRecipes).toBe(firstLs);
     expect(favorite).toBeInTheDocument();
 
-    userEvent.click(favorite);
-    await waitFor(() => {
-      console.log('abubleble');
-    }, { timeout: 1000 });
     expect(favImg).toBeInTheDocument();
     expect(favorite).toBeInTheDocument();
 
     userEvent.click(favorite);
-    expect(favImg).toHaveAttribute('src',
+    await waitFor(() => {
+      expect(favImg).toHaveAttribute('src',
       'whiteHeartIcon.svg');
+    }, { timeout: 1000 });
+
     expect(localStorage.favoriteRecipes).toBe('[]');
   });
+
+  it('testa /drinks', async () => {
+    localStorage.clear();
+    const history = createMemoryHistory();
+    history.push('/drinks/17222/in-progress');
+    const localSt = '[{"id":"/drinks/17222/in-progress","ings":["Gin"],"arrayOfCheck":["false","false","false","false"]}]'
+    const localSt2 = '[{"id":"/drinks/17222/in-progress","ings":["Gin","Grand Marnier"],"arrayOfCheck":["false","false","false","false"]}]'
+    render(
+      <Provider store={ store }>
+        <Router history={ history }>
+          <App />
+        </Router>
+        ,
+      </Provider>,
+    );
+    const recipeTitle = await screen.findByTestId('recipe-title');
+    const recipePhoto = await screen.findByTestId('recipe-photo');
+    const favImg = await screen.findByAltText('fav');
+    const ingStep1 = await screen.findByRole('checkbox', {
+      name: /gin 1 3\/4 shot/i
+    })
+    const ingStep2 = await screen.findByRole('checkbox', {
+      name: /grand marnier 1 shot/i
+    })
+    expect(recipeTitle).toBeInTheDocument();
+    userEvent.click(ingStep1);
+
+    await waitFor(() => {
+      expect(localStorage.getItem('in-progress')).toEqual(localSt)
+    }, { timeout: 1000 });
+    userEvent.click(ingStep2);
+    expect(recipePhoto).toBeInTheDocument();
+    await waitFor(() => {
+      expect(localStorage.getItem('in-progress')).toEqual(localSt2)
+    }, { timeout: 1000 });
+    history.push('/drinks/17222/in-progress');
+    await waitFor(() => {
+      expect(localStorage.getItem('in-progress')).toEqual(localSt2)
+    }, { timeout: 1000 });
+    expect(ingStep2.checked).toEqual(true)
+  });
+
 });
