@@ -71,4 +71,41 @@ describe('teste do header', () => {
     userEvent.click(right);
     userEvent.click(start);
   });
+  it('clipboard', async () => {
+    const history = createMemoryHistory();
+    history.push('/foods/52977');
+    render(
+      <Provider store={ store }>
+        <Router history={ history }>
+          <App />
+        </Router>
+        ,
+      </Provider>,
+    );
+    const share = await screen.findByTestId('share-btn');
+    jest.spyOn(navigator.clipboard, 'writeText');
+    userEvent.click(share);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/foods/52977');
+    const linkCopied = await screen.findByText(/link copied!/i);
+    expect(linkCopied).toHaveTextContent('Link copied!');
+  });
+
+  it('clipboard', async () => {
+    const history = createMemoryHistory();
+    history.push('/foods/52977/in-progress');
+    render(
+      <Provider store={ store }>
+        <Router history={ history }>
+          <App />
+        </Router>
+        ,
+      </Provider>,
+    );
+    const share = await screen.findByTestId('share-btn');
+    jest.spyOn(navigator.clipboard, 'writeText');
+    userEvent.click(share);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/foods/52977');
+    const linkCopied = await screen.findByText(/link copied!/i);
+    expect(linkCopied).toHaveTextContent('Link copied!');
+  });
 });
