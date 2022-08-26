@@ -64,6 +64,17 @@ function RecipeDetails({ match }) {
     return setFavotite(!isFavorite);
   };
 
+  const verifyRecipesDone = () => {
+    const local = JSON.parse(localStorage.getItem('doneRecipes'));
+    const some = local && local.some(({ id }) => id === match.params.id);
+    return some;
+  };
+  const verifyRecipesProgress = () => {
+    const local = JSON.parse(localStorage.getItem('in-progress'));
+    const some = local && local.some(({ id }) => id.includes(history.location.pathname));
+    return some;
+  };
+
   return (
     <div className="container">
       {details && (
@@ -117,11 +128,15 @@ function RecipeDetails({ match }) {
                 >
                   {item.strMeal || item.strDrink}
                 </p>
-                <img
+                <input
+                  type="image"
                   src={ item.strMealThumb || item.strDrinkThumb }
                   alt="foto"
                   data-testid="recipe-photo"
                   className="image"
+                  onClick={ () => history.push(history
+                    .location.pathname.includes('/foods')
+                    ? `/drinks/${item.idDrink}` : `/foods/${item.idMeal}`) }
                 />
               </div>
             ))}
@@ -175,7 +190,7 @@ function RecipeDetails({ match }) {
         <img src={ shareIcon } alt="compartilhar" />
       </button>
 
-      {!localStorage.getItem('doneRecipes') && (
+      {!verifyRecipesDone() && (
         <button
           type="button"
           data-testid="start-recipe-btn"
@@ -184,7 +199,7 @@ function RecipeDetails({ match }) {
             history.push(`${history.location.pathname}/in-progress`);
           } }
         >
-          {!localStorage.getItem('inProgressRecipes')
+          {verifyRecipesProgress()
             ? 'Start Recipe' : 'Continue Recipe'}
         </button>)}
     </div>

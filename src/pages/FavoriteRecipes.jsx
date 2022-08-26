@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import copy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';

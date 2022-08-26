@@ -4,64 +4,55 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { saveIngredietns } from '../redux/reducer/ingredients';
+import addIngs from '../utils/addIngs';
 
-const second = 2000;
 const inProgress = 'in-progress';
 function Ingredients2({ ing, index, details }) {
   const [check, setCheck] = useState(false);
+  const [checkLocal, setCheckLocal] = useState(false);
 
   const checkbox = useRef('checked');
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const setTime = () => {
-    setTimeout(() => { checkbox.current.checked = check; }, second);
-  };
-
   const checkedVerify = () => {
     const getLocal = JSON.parse(localStorage.getItem(inProgress));
     if (getLocal) {
-      getLocal.forEach((item) => {
-        if (item.id === history.location.pathname) {
-          setCheck(item.ings.includes(details[ing]));
-        }
-      });
+      getLocal.forEach((item) => item.id === history.location.pathname
+      && setCheck(item.ings.includes(details[ing])));
     }
-    setTime();
+    setCheckLocal(true);
   };
 
   useEffect(() => {
     checkedVerify();
   }, []);
 
+  const getLocal = JSON.parse(localStorage.getItem(inProgress));
   const isChecked = (target) => {
-    dispatch(saveIngredietns(1));
-    setCheck(target.checked);
-    const getLocal = JSON.parse(localStorage.getItem(inProgress));
-    const checkCollection = Array.from(target.parentNode.parentNode.children);
-    checkCollection.shift();
-    const arrayOfCheck = checkCollection.map((element) => (
-      element.dataset.check
-    ));
-    if (target.checked && !getLocal) {
-      const arr = [{ id: history.location.pathname, ings: [details[ing]], arrayOfCheck }];
-      return localStorage.setItem(inProgress, JSON.stringify(arr));
-    }
-    if (target.checked) {
-      const verify = getLocal.some(({ id }) => id === history.location.pathname);
-      if (!verify) {
-        const arr = [...getLocal,
-          { id: history.location.pathname, ings: [details[ing]], arrayOfCheck }];
+    if (!check) {
+      dispatch(saveIngredietns(1));
+      setCheck(target.checked);
+      const checkCollection = Array.from(target.parentNode.parentNode.children);
+      checkCollection.shift();
+      const arrayOfCheck = checkCollection.map((element) => (
+        element.dataset.check
+      ));
+      if (target.checked && !getLocal) {
+        const arr = [{ id: history.location.pathname,
+          ings: [details[ing]],
+          arrayOfCheck }];
         return localStorage.setItem(inProgress, JSON.stringify(arr));
       }
-
-      const addIng = getLocal.map((item) => {
-        if (item.id === history.location.pathname) {
-          return { ...item, ings: [...item.ings, details[ing]] };
+      if (target.checked) {
+        const verify = getLocal.some(({ id }) => id === history.location.pathname);
+        if (!verify) {
+          const arr = [...getLocal,
+            { id: history.location.pathname, ings: [details[ing]], arrayOfCheck }];
+          return localStorage.setItem(inProgress, JSON.stringify(arr));
         }
-        return item;
-      });
-      return localStorage.setItem(inProgress, JSON.stringify(addIng));
+        addIngs(getLocal, history, details, ing);
+      }
     }
   };
 
@@ -75,15 +66,17 @@ function Ingredients2({ ing, index, details }) {
         key={ index }
         data-testid={ `${index}-ingredient-step` }
         data-check={ check }
+        style={ {
+          textDecoration: check && 'line-through',
+        } }
       >
-        <input
+        {checkLocal && (<input
           type="checkbox"
           id={ index }
           onChange={ ({ target }) => isChecked(target) }
           ref={ checkbox }
-          defaultChecked={ check }
-          // disabled={ check }
-        />
+          checked={ check }
+        />)}
         {`${details[ing]} ${details[strMeasure[index]]}`}
         <br />
       </label>
