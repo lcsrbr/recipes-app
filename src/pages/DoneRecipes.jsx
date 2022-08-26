@@ -2,10 +2,9 @@ import copy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
-const time = 2000;
+const time = 1000;
 
 function DoneRecipes() {
   const [done, setDone] = useState(null);
@@ -25,12 +24,6 @@ function DoneRecipes() {
     copy(`http://localhost:3000/${url}`);
     setCopied(true);
     setTimeout(() => setCopied(false), time);
-  };
-
-  const removeDone = (recipeId) => {
-    const remove = local.filter(({ id }) => id !== recipeId);
-    localStorage.setItem('doneRecipes', JSON.stringify(remove));
-    setDone(remove);
   };
 
   const redirectDetails = (id, type) => {
@@ -65,7 +58,6 @@ function DoneRecipes() {
         Drinks
       </button>
       <section>
-        {copied && <p data-testid="Link-copied">Link copied!</p>}
         {done && done
           .filter((data) => (!filter ? data : data.type === filter))
           .map((data, index) => (
@@ -105,20 +97,13 @@ function DoneRecipes() {
                   {value}
                 </p>
               ))}
-
+              {copied && <p data-testid="Link-copied">Link copied!</p>}
               <input
                 type="image"
                 src={ shareIcon }
                 alt={ data.name }
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => handleShare(data.id, data.type) }
-              />
-              <input
-                type="image"
-                src={ blackHeartIcon }
-                alt={ data.name }
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                onClick={ () => removeDone(data.id) }
               />
             </div>
           ))}
