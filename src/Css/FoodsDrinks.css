@@ -1,0 +1,20 @@
+.teste {
+    margin-bottom: 100px;
+    width: 100%;
+  }
+  
+  .recipesImg {
+    width: 80%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .listItems {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+  }

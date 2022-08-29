@@ -58,7 +58,6 @@ function Ingredients2({ ing, index, details }) {
 
   const strMeasure = details
     && Object.keys(details).filter((item) => item.includes('strMeasure'));
-
   return (
     details[ing] && (
       <label

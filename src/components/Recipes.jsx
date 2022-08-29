@@ -13,10 +13,9 @@ function Recipes({ index, recipe }) {
 
   const idRecipe = recipe.idMeal || recipe.idDrink;
   return (
-    <div data-testid={ `${index}-recipe-card` } key={ idRecipe }>
+    <div data-testid={ `${index}-recipe-card` } key={ idRecipe } className="recipesImg">
       {/* <Link to={ idRecipe }> */}
       <Link to={ `${pathname}/${idRecipe}` }>
-
         <img
           data-testid={ `${index}-card-img` }
           src={ recipe.strMealThumb || recipe.strDrinkThumb }

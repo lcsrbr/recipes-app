@@ -3,6 +3,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { useDispatch } from 'react-redux';
 import { saveUser } from '../redux/reducer/user';
+import '../Css/Login.css';
 
 const minLength = 6;
 
@@ -24,7 +25,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login">
       <input
         type="email"
         data-testid="email-input"

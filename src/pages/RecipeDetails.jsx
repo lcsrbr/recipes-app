@@ -7,6 +7,7 @@ import '../Css/recipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../Css/FoodsDrinks.css';
 
 const copy = require('clipboard-copy');
 
@@ -114,50 +115,42 @@ function RecipeDetails({ match }) {
             <h4>instruções</h4>
             <p data-testid="instructions">{details.strInstructions}</p>
           </div>
-
           <p>recomendações</p>
-          <div className="carousel" ref={ carousel }>
-            {recom && recom.map((item, index) => (
-              <div
-                data-testid={ `${index}-recomendation-card` }
-                key={ index }
-                className="item"
-              >
-                <p
-                  data-testid={ `${index}-recomendation-title` }
+          <div className="recomendacoes">
+            <button
+              type="button"
+              onClick={ () => {
+                carousel.current.scrollLeft -= carousel.current.offsetWidth;
+              } }
+            >
+              Left
+            </button>
+            <div className="carousel" ref={ carousel }>
+              {recom && recom.map((item, index) => (
+                <div
+                  data-testid={ `${index}-recomendation-card` }
+                  key={ index }
+                  className="item"
                 >
-                  {item.strMeal || item.strDrink}
-                </p>
-                <input
-                  type="image"
-                  src={ item.strMealThumb || item.strDrinkThumb }
-                  alt="foto"
-                  data-testid="recipe-photo"
-                  className="image"
-                  onClick={ () => history.push(history
-                    .location.pathname.includes('/foods')
-                    ? `/drinks/${item.idDrink}` : `/foods/${item.idMeal}`) }
-                />
-              </div>
-            ))}
+                  <p
+                    data-testid={ `${index}-recomendation-title` }
+                  >
+                    {item.strMeal || item.strDrink}
+                  </p>
+                  <input
+                    type="image"
+                    src={ item.strMealThumb || item.strDrinkThumb }
+                    alt="foto"
+                    data-testid="recipe-photo"
+                    className="image"
+                     onClick={ () => history.push(history
+                       .location.pathname.includes('/foods')
+                       ? `/drinks/${item.idDrink}` : `/foods/${item.idMeal}`) }
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={ () => {
-              carousel.current.scrollLeft -= carousel.current.offsetWidth;
-            } }
-          >
-            Left
-          </button>
-          <button
-            type="button"
-            onClick={ () => {
-              carousel.current.scrollLeft += carousel.current.offsetWidth;
-            } }
-          >
-            Right
-          </button>
-
           {history.location.pathname.includes('/foods') && (
             <video data-testid="video">
               <track kind="captions" src={ details.strYoutube } />
