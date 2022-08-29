@@ -37,7 +37,7 @@ function Header() {
       </Link>
       <h1
         data-testid="page-title"
-        className="text-3xl font-bold underline"
+        className="text-3xl font-bold"
       >
         { dynamicTitle() }
 
