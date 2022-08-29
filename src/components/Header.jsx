@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../Css/Header.css';
 
 function Header() {
   const [toogle, setToogle] = useState(false);
 
+  const history = useHistory();
   const dynamicTitle = () => ({
     '/foods': 'Foods',
     '/drinks': 'Drinks',
     '/profile': 'Profile',
     '/done-recipes': 'Done Recipes',
     '/favorite-recipes': 'Favorite Recipes',
-  })[window.location.pathname];
+  })[history.location.pathname];
 
   const dynamicSearchIcon = () => ({
     '/foods': false,
@@ -21,11 +24,10 @@ function Header() {
     '/profile': true,
     '/done-recipes': true,
     '/favorite-recipes': true,
-  })[window.location.pathname];
+  })[history.location.pathname];
 
   return (
-    <div>
-      <h1 data-testid="page-title">{ dynamicTitle() }</h1>
+    <header>
       <Link to="/profile">
         <img
           src={ profileIcon }
@@ -33,6 +35,13 @@ function Header() {
           data-testid="profile-top-btn"
         />
       </Link>
+      <h1
+        data-testid="page-title"
+        className="text-3xl font-bold underline"
+      >
+        { dynamicTitle() }
+
+      </h1>
       { !dynamicSearchIcon() && (
         <button
           type="button"
@@ -47,7 +56,7 @@ function Header() {
 
       ) }
       {toogle && <SearchBar /> }
-    </div>
+    </header>
   );
 }
 
