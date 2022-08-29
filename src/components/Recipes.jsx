@@ -16,9 +16,7 @@ function Recipes({ index, recipe }) {
     <div data-testid={ `${index}-recipe-card` } key={ idRecipe } className="recipesImg">
       {/* <Link to={ idRecipe }> */}
       <Link to={ `${pathname}/${idRecipe}` }>
-
         <img
-          className="recipesImg"
           data-testid={ `${index}-card-img` }
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt={ recipe.strMeal || recipe.strDrink }

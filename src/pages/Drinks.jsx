@@ -65,14 +65,16 @@ function Drinks() {
       <Route exact path="/drinks" component={ Header } />
       drinks
       <div className="teste">
-        { storageCocktails && storageCocktails.slice(0, maxLength).map((drink, index) => (
-          <Recipes
-            key={ index }
-            recipe={ drink }
-            index={ index }
-            recipes={ storageCocktails.slice(0, maxLength) }
-          />
-        ))}
+        <div className="listItems">
+          { storageCocktails && storageCocktails.slice(0, maxLength).map((drink, index) => (
+            <Recipes
+              key={ index }
+              recipe={ drink }
+              index={ index }
+              recipes={ storageCocktails.slice(0, maxLength) }
+            />
+          ))}
+        </div>
         { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
           <button
             key={ i }

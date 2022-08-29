@@ -9,38 +9,53 @@ function Profile() {
   const history = useHistory();
 
   return (
-    <div>
+    <section
+      className="flex-col w-360 h-screen bg-229, 229, 229"
+    >
       <Header />
-      Profile
-      <Footer />
-      <section>
-        <h3 data-testid="profile-email">{`Email: ${email}`}</h3>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ () => history.push('/done-recipes') }
+      <h3
+        data-testid="profile-email"
+        className="flex justify-center container w-225 h-35 mx-auto mt-10"
+      >
+        <span
+          className=" text-2xl"
+        >
+          {email}
+        </span>
+      </h3>
+      <button
+        type="button"
+        data-testid="profile-done-btn"
+        onClick={ () => history.push('/done-recipes') }
+        className="flex justify-center container w-329 h-53 mx-auto mt-10 bg-white"
+      >
+        <span
+          className=""
         >
           Done Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ () => history.push('/favorite-recipes') }
-        >
-          Favorite Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => {
-            localStorage.clear();
-            history.push('/');
-          } }
-        >
-          Logout
-        </button>
-      </section>
-    </div>
+        </span>
+      </button>
+      <button
+        type="button"
+        data-testid="profile-favorite-btn"
+        onClick={ () => history.push('/favorite-recipes') }
+        className="flex justify-center container w-329 h-53 mx-auto   mt-10"
+      >
+        Favorite Recipes
+      </button>
+      <button
+        type="button"
+        data-testid="profile-logout-btn"
+        className="flex justify-center container w-329 h-53 mx-auto  mt-10"
+        onClick={ () => {
+          localStorage.clear();
+          history.push('/');
+        } }
+      >
+        Logout
+      </button>
+      <Footer />
+    </section>
   );
 }
 
