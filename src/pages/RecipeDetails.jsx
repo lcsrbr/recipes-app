@@ -134,9 +134,9 @@ function RecipeDetails({ match }) {
                   alt="foto"
                   data-testid="recipe-photo"
                   className="image"
-                  // onClick={ () => history.push(history
-                  //   .location.pathname.includes('/foods')
-                  //   ? `/drinks/${item.idDrink}` : `/foods/${item.idMeal}`) }
+                  onClick={ () => history.push(history
+                    .location.pathname.includes('/foods')
+                    ? `/drinks/${item.idDrink}` : `/foods/${item.idMeal}`) }
                 />
               </div>
             ))}
@@ -199,7 +199,7 @@ function RecipeDetails({ match }) {
             history.push(`${history.location.pathname}/in-progress`);
           } }
         >
-          {verifyRecipesProgress()
+          {!verifyRecipesProgress()
             ? 'Start Recipe' : 'Continue Recipe'}
         </button>)}
     </div>
