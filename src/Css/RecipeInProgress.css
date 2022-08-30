@@ -1,0 +1,61 @@
+.food-title {
+  font-family: Cambria , Cochin , Georgia , Times , Times New Roman , serif;
+  font-size: 40px;
+}
+
+.enabledBtn {
+  background-color: #dd7f27;
+  border-radius: 30px;
+  display: flex;
+  height: 40px;
+  opacity: 1;
+  width: 100px;
+}
+
+/*
+.disabledBtn {
+  background-color: rgb(5, 255, 5);
+  border-radius: 30px;
+  height: 40px;
+  opacity: 0.4;
+  width: 100px;
+} */
+
+.ingredients {
+  background-color: #e5e5e5;
+  color: black;
+  font-size: 15px;
+  padding-left: 10px;
+}
+
+.h4-ingredients {
+  font-family: sans-serif;
+  font-size: 30px;
+}
+
+.recipe-category {
+  color: #8f8a8a;
+  font-size: 30px;
+}
+
+.meals {
+  display: flex;
+  justify-content: center;
+}
+
+.recipe-photo {
+  display: flex;
+  height: 200px;
+  width: 100%;
+}
+
+.h4-instructions {
+  font-family: sans-serif;
+  font-size: 30px;
+}
+
+.instructions {
+  background-color: #e5e5e5;
+  font-size: 17px;
+  text-align: center;
+}

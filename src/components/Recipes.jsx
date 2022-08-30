@@ -13,7 +13,12 @@ function Recipes({ index, recipe }) {
 
   const idRecipe = recipe.idMeal || recipe.idDrink;
   return (
-    <div data-testid={ `${index}-recipe-card` } key={ idRecipe } className="recipesImg">
+    <div
+      data-testid={ `${index}-recipe-card` }
+      key={ idRecipe }
+      className="recipesImg border-solid border-2 border-orange-500 shadow-grey-500/50
+      hover:border-black-500 shadow-lg "
+    >
       {/* <Link to={ idRecipe }> */}
       <Link to={ `${pathname}/${idRecipe}` }>
         <img
@@ -22,7 +27,10 @@ function Recipes({ index, recipe }) {
           alt={ recipe.strMeal || recipe.strDrink }
         />
       </Link>
-      <p data-testid={ `${index}-card-name` }>
+      <p
+        data-testid={ `${index}-card-name` }
+        className="text-2xl font-light italic"
+      >
         {recipe.strMeal || recipe.strDrink}
       </p>
     </div>

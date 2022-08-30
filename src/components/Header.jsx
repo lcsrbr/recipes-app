@@ -27,34 +27,35 @@ function Header() {
   })[history.location.pathname];
 
   return (
-    <header>
-      <Link to="/profile">
-        <img
-          src={ profileIcon }
-          alt="profile icon"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1
-        data-testid="page-title"
-        className="text-3xl font-bold"
-      >
-        { dynamicTitle() }
-
-      </h1>
-      { !dynamicSearchIcon() && (
-        <button
-          type="button"
-          onClick={ () => setToogle((prev) => !prev) }
-        >
+    <header className="shadow-lg shadow-grey-500/20">
+      <div className="iconsAndTitle">
+        <Link to="/profile">
           <img
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="search icon"
+            src={ profileIcon }
+            alt="profile icon"
+            data-testid="profile-top-btn"
           />
-        </button>
+        </Link>
+        <h1
+          data-testid="page-title"
+          className="text-3xl font-light"
+        >
+          { dynamicTitle() }
 
-      ) }
+        </h1>
+        { !dynamicSearchIcon() && (
+          <button
+            type="button"
+            onClick={ () => setToogle((prev) => !prev) }
+          >
+            <img
+              data-testid="search-top-btn"
+              src={ searchIcon }
+              alt="search icon"
+            />
+          </button>
+        ) }
+      </div>
       {toogle && <SearchBar /> }
     </header>
   );

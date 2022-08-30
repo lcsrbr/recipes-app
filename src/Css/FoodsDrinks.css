@@ -1,20 +1,53 @@
-.teste {
-    margin-bottom: 100px;
+.componentItem {
+    margin: 50px 0;
     width: 100%;
-  }
-  
-  .recipesImg {
+    gap: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipesImg {
     width: 80%;
     text-align: center;
     display: flex;
     align-items: center;
     flex-direction: column;
-  }
+    gap: 1em;
+    border-radius: 4px;
+    transition-duration: 0.2s;
+}
 
-  .listItems {
+.recipesImg:hover {
+    background-color: whitesmoke;
+    width: 82%;
+}
+
+.recipesImg img {
+    border-radius: 4px;
+    transition-duration: 0.2s;
+
+}
+
+.listItems {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 2em;
-  }
+    margin-bottom: 10px;
+}
+
+.categories {
+    display: flex;
+    gap: 2em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.categories button {
+    height: 50px;
+    width: 120px;
+    border-radius: 4px;
+    color: white;
+}
