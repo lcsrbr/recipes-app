@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import '../Css/FoodsFavorite.css';
+import '../Css/doneRecipes.css';
 
 const time = 1000;
 
@@ -75,52 +75,58 @@ function DoneRecipes() {
             <div
               key={ data.id }
               data-testid={ `${index}-${data.name}-horizontal-tag` }
-              className="favoritImg"
+              className="donRecipes"
             >
-
-              <button
-                type="button"
-                onClick={ () => redirectDetails(data.id, data.type) }
-              >
-                <img
-                  data-testid={ `${index}-horizontal-image` }
-                  className="recipesImg"
-                  src={ data.image }
-                  alt={ data.name }
-                  width="150px"
-                />
-              </button>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {data.type === 'food'
-                  ? `${data.nationality} - ${data.category}` : data.alcoholicOrNot}
-              </p>
-              <button
-                data-testid={ `${index}-horizontal-name` }
-                type="button"
-                onClick={ () => redirectDetails(data.id, data.type) }
-              >
-                {data.name}
-
-              </button>
-              <p data-testid={ `${index}-horizontal-done-date` }>{data.doneDate}</p>
-              {data.tags && data.tags.map((value) => (
-                <p
-                  data-testid={ `${index}-${value}-horizontal-tag` }
-                  key={ value }
+              <div>
+                <button
+                  type="button"
+                  onClick={ () => redirectDetails(data.id, data.type) }
                 >
-                  {value}
-                </p>
-              ))}
-              {copied && <p data-testid="Link-copied">Link copied!</p>}
-              <input
-                type="image"
-                src={ shareIcon }
-                alt={ data.name }
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => handleShare(data.id, data.type) }
-              />
+                  <img
+                    data-testid={ `${index}-horizontal-image` }
+                    src={ data.image }
+                    alt={ data.name }
+                    className="Img"
+                  />
+                </button>
+              </div>
+              <div>
+                <div className=".donRecipesBth">
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {data.type === 'food'
+                      ? `${data.nationality} - ${data.category}` : data.alcoholicOrNot}
+                  </p>
+                  <button
+                    data-testid={ `${index}-horizontal-name` }
+                    type="button"
+                    onClick={ () => redirectDetails(data.id, data.type) }
+                  >
+                    {data.name}
+
+                  </button>
+                </div>
+                <div>
+                  <p data-testid={ `${index}-horizontal-done-date` }>{data.doneDate}</p>
+                  {data.tags && data.tags.map((value) => (
+                    <p
+                      data-testid={ `${index}-${value}-horizontal-tag` }
+                      key={ value }
+                    >
+                      {value}
+                    </p>
+                  ))}
+                  {copied && <p data-testid="Link-copied">Link copied!</p>}
+                  <input
+                    type="image"
+                    src={ shareIcon }
+                    alt={ data.name }
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    onClick={ () => handleShare(data.id, data.type) }
+                  />
+                </div>
+              </div>
             </div>
           ))}
       </section>
