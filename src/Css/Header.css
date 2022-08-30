@@ -52,3 +52,11 @@ header {
     border-radius: 15px;
     color: white;
 } */
+
+.selectAndSearch {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 4rem;
+}

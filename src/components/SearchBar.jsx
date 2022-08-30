@@ -45,47 +45,32 @@ function SearchBar() {
              rounded
               focus:outline-none"
       />
-      <div className="searchBar">
-        <label htmlFor="Ingredient">
-          Ingredient
-          <input
-            type="radio"
-            id="Ingredient"
-            name="radioSearch"
-            data-testid="ingredient-search-radio"
-            onClick={ () => setSearchFilter('Ingredient') }
-          />
-        </label>
-        <label htmlFor="Name">
-          Name
-          <input
-            type="radio"
-            id="Name"
-            name="radioSearch"
-            data-testid="name-search-radio"
-            onClick={ () => setSearchFilter('Name') }
-          />
-        </label>
-        <label htmlFor="First letter">
-          First letter
-          <input
-            type="radio"
-            id="First letter"
-            name="radioSearch"
-            data-testid="first-letter-search-radio"
-            onClick={ () => setSearchFilter('First-letter') }
-
-          />
-        </label>
-
-      </div>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ getSearchFoodApi }
-        className="animate-bounce
-        inline-block
-        w-30 mt-10
+      <div className="selectAndSearch">
+        <select
+          onClick={ ({ target }) => setSearchFilter(target.value) }
+        >
+          <option
+            value="Ingredient"
+          >
+            Ingredient
+          </option>
+          <option
+            value="Name"
+          >
+            Name
+          </option>
+          <option
+            value="First-letter"
+          >
+            First letter
+          </option>
+        </select>
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ getSearchFoodApi }
+          className="animate-pulse
+          flex
         px-8 py-4
         leading-none
          text-white
@@ -96,9 +81,10 @@ function SearchBar() {
            font-semibold
            rounded
            shadow "
-      >
-        Search
-      </button>
+        >
+          Search
+        </button>
+      </div>
     </div>
   );
 }

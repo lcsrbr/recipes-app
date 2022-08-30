@@ -105,7 +105,7 @@ function RecipeInProgress({ match }) {
     history.push('/done-recipes');
   };
   return (
-    <div className="container">
+    <div>
       {details && (
         <section>
           <img
@@ -114,41 +114,44 @@ function RecipeInProgress({ match }) {
             className="recipe-photo"
             data-testid="recipe-photo"
           />
-          {copied && <p>Link copied!</p> }
-          <button
-            type="button"
-            onClick={ details && saveFavoriteLocalStorage }
-          >
-            <img
-              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-              alt="fav"
-              data-testid="favorite-btn"
-            />
-          </button>
-
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ () => {
-              const url = history.location.pathname.includes('/foods')
-                ? `foods/${match.params.id}` : `drinks/${match.params.id}`;
-              copy(`http://localhost:3000/${url}`);
-              setCopied(true);
-              setTimeout(() => setCopied(false), seconds);
-            } }
-          >
-            <img src={ shareIcon } alt="compartilhar" />
-
-          </button>
-          <h2 data-testid="recipe-title" className="food-title">
-            {details.strMeal || details.strDrink}
-          </h2>
-          <p data-testid="recipe-category" className="recipe-category">
-            {history.location.pathname.includes('/foods')
-              ? details.strCategory
-              : details.strAlcoholic}
-          </p>
-
+          <div className="RecipesAndIcons">
+            {copied && <p>Link copied!</p> }
+            <div>
+              <h2 data-testid="recipe-title" className="food-title">
+                {details.strMeal || details.strDrink}
+              </h2>
+              <p data-testid="recipe-category" className="recipe-category">
+                {history.location.pathname.includes('/foods')
+                  ? details.strCategory
+                  : details.strAlcoholic}
+              </p>
+            </div>
+            <div className="Icons">
+              <button
+                type="button"
+                onClick={ details && saveFavoriteLocalStorage }
+              >
+                <img
+                  src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+                  alt="fav"
+                  data-testid="favorite-btn"
+                />
+              </button>
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => {
+                  const url = history.location.pathname.includes('/foods')
+                    ? `foods/${match.params.id}` : `drinks/${match.params.id}`;
+                  copy(`http://localhost:3000/${url}`);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), seconds);
+                } }
+              >
+                <img src={ shareIcon } alt="compartilhar" />
+              </button>
+            </div>
+          </div>
           <div>
             <h4 className="h4-ingredients">Ingredientes</h4>
             <div className="ingredients">
@@ -169,19 +172,27 @@ function RecipeInProgress({ match }) {
               <p data-testid="instructions">{details.strInstructions}</p>
             </div>
           </div>
-
-          {history.location.pathname.includes('/foods') && (
-            <video data-testid="video">
-              <track kind="captions" src={ details.strYoutube } />
-            </video>)}
-
         </section>
       )}
-
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        className="enabledBtn"
+        className={ `enabledBtn 
+        ${btnFinish && 'animate-bounce'}
+        flex
+        justify-center
+        container
+        w-30 mt-10
+        px-8 py-4
+        leading-none
+         text-white
+          bg-orange-500
+           hover:bg-orange-700
+           transition
+           duration-300
+           font-semibold
+           rounded
+           shadow` }
         disabled={ !btnFinish }
         onClick={ doneRecipes }
       >

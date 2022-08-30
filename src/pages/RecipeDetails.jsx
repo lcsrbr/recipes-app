@@ -162,7 +162,7 @@ function RecipeDetails({ match }) {
       <button
         type="button"
         onClick={ details && saveFavoriteLocalStorage }
-        data-testId="fav-btn"
+        data-testid="fav-btn"
       >
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
