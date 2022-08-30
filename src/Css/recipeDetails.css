@@ -11,7 +11,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   text-align: center;
-  width: 400px;
+  width: 350px;
 }
 
 .container .carousel::-webkit-scrollbar {
@@ -36,16 +36,16 @@
 
 .StartRecipe {
   bottom: 0;
+  height: 50px;
   position: fixed;
   width: 150px;
-  height: 50px;
 }
 
 .ingrDetails {
   align-items: center;
-  width: 45vh;
   flex-wrap: wrap;
   height: auto;
+  width: 45vh;
 }
 
 .h4-instructions {
@@ -57,8 +57,8 @@
 .instructions {
   background-color: #e5e5e5;
   font-size: 17px;
-  text-align: center;
   padding: 10px;
+  text-align: center;
 }
 
 .recomendacoes {
@@ -66,7 +66,8 @@
   border-radius: 4px;
   margin-bottom: 50px;
 }
-.startButton{
+
+.startButton {
   display: flex;
   justify-content: center;
 }
