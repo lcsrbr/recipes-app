@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import recipeDetailsApi from '../services/recipeDetailsApi';
-import '../Css/recipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Ingredients2 from '../components/Ingredients2';
+import '../Css/RecipeInProgress.css';
 
 const copy = require('clipboard-copy');
 
@@ -108,36 +108,66 @@ function RecipeInProgress({ match }) {
     <div className="container">
       {details && (
         <section>
-          <h2 data-testid="recipe-title">
-            {details.strMeal || details.strDrink}
-          </h2>
           <img
             src={ details.strMealThumb || details.strDrinkThumb }
             alt="foto"
-            width="150px"
+            className="recipe-photo"
             data-testid="recipe-photo"
           />
-          <p data-testid="recipe-category">
+          {copied && <p>Link copied!</p> }
+          <button
+            type="button"
+            onClick={ details && saveFavoriteLocalStorage }
+          >
+            <img
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="fav"
+              data-testid="favorite-btn"
+            />
+          </button>
+
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              const url = history.location.pathname.includes('/foods')
+                ? `foods/${match.params.id}` : `drinks/${match.params.id}`;
+              copy(`http://localhost:3000/${url}`);
+              setCopied(true);
+              setTimeout(() => setCopied(false), seconds);
+            } }
+          >
+            <img src={ shareIcon } alt="compartilhar" />
+
+          </button>
+          <h2 data-testid="recipe-title" className="food-title">
+            {details.strMeal || details.strDrink}
+          </h2>
+          <p data-testid="recipe-category" className="recipe-category">
             {history.location.pathname.includes('/foods')
               ? details.strCategory
               : details.strAlcoholic}
           </p>
 
           <div>
-            <h4>ingredientes</h4>
-            {details && strIngrs.map((ing, index) => (
-              <Ingredients2
-                key={ index }
-                ing={ ing }
-                index={ index }
-                details={ details }
-              />
-            ))}
+            <h4 className="h4-ingredients">Ingredientes</h4>
+            <div className="ingredients">
+              {details && strIngrs.map((ing, index) => (
+                <Ingredients2
+                  key={ index }
+                  ing={ ing }
+                  index={ index }
+                  details={ details }
+                />
+              ))}
+            </div>
           </div>
-
+          <br />
           <div>
-            <h4>instruções</h4>
-            <p data-testid="instructions">{details.strInstructions}</p>
+            <h4 className="h4-instructions">Instruções</h4>
+            <div className="instructions">
+              <p data-testid="instructions">{details.strInstructions}</p>
+            </div>
           </div>
 
           {history.location.pathname.includes('/foods') && (
@@ -147,36 +177,11 @@ function RecipeInProgress({ match }) {
 
         </section>
       )}
-      {copied && <p>Link copied!</p> }
-      <button
-        type="button"
-        onClick={ details && saveFavoriteLocalStorage }
-      >
-        <img
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="fav"
-          data-testid="favorite-btn"
-        />
-      </button>
-
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => {
-          const url = history.location.pathname.includes('/foods')
-            ? `foods/${match.params.id}` : `drinks/${match.params.id}`;
-          copy(`http://localhost:3000/${url}`);
-          setCopied(true);
-          setTimeout(() => setCopied(false), seconds);
-        } }
-      >
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
 
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        className="StartRecipe"
+        className="enabledBtn"
         disabled={ !btnFinish }
         onClick={ doneRecipes }
       >

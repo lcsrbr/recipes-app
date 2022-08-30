@@ -63,34 +63,41 @@ function Drinks() {
   return (
     <div>
       <Route exact path="/drinks" component={ Header } />
-      drinks
-      <div className="teste">
-        { storageCocktails && storageCocktails.slice(0, maxLength).map((drink, index) => (
-          <Recipes
-            key={ index }
-            recipe={ drink }
-            index={ index }
-            recipes={ storageCocktails.slice(0, maxLength) }
-          />
-        ))}
-        { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
+      <div className="componentItem">
+        <div className="categories">
+          { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
+            <button
+              key={ i }
+              type="button"
+              data-testid={ `${categoryName}-category-filter` }
+              onClick={ () => handleClick(categoryName) }
+              className="bg-orange-500 hover:bg-orange-700 ..."
+            >
+              {categoryName}
+            </button>
+          ))}
           <button
-            key={ i }
             type="button"
-            data-testid={ `${categoryName}-category-filter` }
-            onClick={ () => handleClick(categoryName) }
+            data-testid="All-category-filter"
+            onClick={ () => cocktailApi('Name', '')
+              .then((item) => dispatch(saveCocktailApi(item))) }
+            className="bg-orange-500 hover:bg-orange-700 ..."
           >
-            {categoryName}
+            All
           </button>
-        ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => cocktailApi('Name', '')
-            .then((item) => dispatch(saveCocktailApi(item))) }
-        >
-          All
-        </button>
+        </div>
+        <div className="listItems">
+          { storageCocktails && storageCocktails.slice(0, maxLength)
+            .map((drink, index) => (
+              <Recipes
+                key={ index }
+                recipe={ drink }
+                index={ index }
+                recipes={ storageCocktails.slice(0, maxLength) }
+              />
+            ))}
+        </div>
+
       </div>
       <Footer />
     </div>

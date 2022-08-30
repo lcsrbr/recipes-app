@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import '../Css/FoodsFavorite.css';
 
 const time = 2000;
 
@@ -40,79 +41,98 @@ function FavoriteRecipes() {
   };
 
   return (
-    <div>
+    <div className="total">
       <Header />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ () => setFilter('') }
-      >
-        All
-      </button>
-
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ () => setFilter('food') }
-      >
-        Food
-      </button>
-
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ () => setFilter('drink') }
-      >
-        Drinks
-      </button>
+      <div className="favorit-Btns">
+        <div>
+          <button
+            data-testid="filter-by-all-btn"
+            type="button"
+            onClick={ () => setFilter('') }
+            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+          >
+            All
+          </button>
+        </div>
+        <div>
+          <button
+            data-testid="filter-by-food-btn"
+            type="button"
+            onClick={ () => setFilter('food') }
+            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+          >
+            Food
+          </button>
+        </div>
+        <div>
+          <button
+            data-testid="filter-by-drink-btn"
+            type="button"
+            onClick={ () => setFilter('drink') }
+            className="bg-orange-500 hover:bg-orange-700  favorit-All"
+          >
+            Drinks
+          </button>
+        </div>
+      </div>
       <section>
         {copied && <p data-testid="Link-copied">Link copied!</p>}
         {favorites && favorites
           .filter((data) => (!filter ? data : data.type === filter))
           .map((data, index) => (
-            <div key={ data.id } data-testid={ `${index}-${data.name}-horizontal-tag` }>
+            <div
+              key={ data.id }
+              data-testid={ `${index}-${data.name}-horizontal-tag` }
+              className="favoritImg"
+            >
+              <div>
+                <button
+                  type="button"
+                  onClick={ () => redirectDetails(data.id, data.type) }
+                >
+                  <img
+                    data-testid={ `${index}-horizontal-image` } // image favorit
+                    src={ data.image }
+                    alt={ data.name }
+                    width="150px"
+                    className="recipesImg"
 
-              <button
-                type="button"
-                onClick={ () => redirectDetails(data.id, data.type) }
-              >
-                <img
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ data.image }
-                  alt={ data.name }
-                  width="150px"
-                />
-              </button>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {data.type === 'food'
-                  ? `${data.nationality} - ${data.category}` : data.alcoholicOrNot}
-              </p>
-              <button
-                data-testid={ `${index}-horizontal-name` }
-                type="button"
-                onClick={ () => redirectDetails(data.id, data.type) }
-              >
-                {data.name}
+                  />
+                </button>
+              </div>
+              <div>
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {data.type === 'food'
+                    ? `${data.nationality} - ${data.category}` : data.alcoholicOrNot}
+                </p>
+                <button
+                  data-testid={ `${index}-horizontal-name` }
+                  type="button"
+                  onClick={ () => redirectDetails(data.id, data.type) }
+                >
+                  {data.name}
 
-              </button>
-              <p data-testid={ `${index}-horizontal-done-date` }>{ }</p>
-
-              <input
-                type="image"
-                src={ shareIcon }
-                alt={ data.name }
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => handleShare(data.id, data.type) }
-              />
-              <input
-                type="image"
-                src={ blackHeartIcon }
-                alt={ data.name }
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                onClick={ () => removeFavorite(data.id) }
-              />
+                </button>
+                <p data-testid={ `${index}-horizontal-done-date` }>{ }</p>
+                <div className="favorit-Bts">
+                  <input
+                    type="image"// compartilhar
+                    src={ shareIcon }
+                    alt={ data.name }
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    onClick={ () => handleShare(data.id, data.type) }
+                  />
+                  <input
+                    type="image"// coração
+                    src={ blackHeartIcon }
+                    alt={ data.name }
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    onClick={ () => removeFavorite(data.id) }
+                  />
+                </div>
+              </div>
             </div>
           ))}
       </section>

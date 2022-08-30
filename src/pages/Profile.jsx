@@ -9,38 +9,52 @@ function Profile() {
   const history = useHistory();
 
   return (
-    <div>
+    <section
+      className="flex-col w-screen h-screen"
+    >
       <Header />
-      Profile
+      <h3
+        data-testid="profile-email"
+        className="flex justify-center container w-225 h-35
+         mx-auto mt-10 text-2xl"
+      >
+        {email}
+      </h3>
+      <button
+        type="button"
+        data-testid="profile-done-btn"
+        onClick={ () => history.push('/done-recipes') }
+        className="flex justify-center container w-329
+        h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
+        rounded p-2 text-xl text-slate-50"
+      >
+        Done Recipes
+      </button>
+      <button
+        type="button"
+        data-testid="profile-favorite-btn"
+        onClick={ () => history.push('/favorite-recipes') }
+        className="flex justify-center container w-329
+        h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
+        rounded p-2 text-xl text-slate-50"
+      >
+        Favorite Recipes
+      </button>
+      <button
+        type="button"
+        data-testid="profile-logout-btn"
+        className="flex justify-center container w-329
+        h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
+        rounded p-2 text-xl text-slate-50"
+        onClick={ () => {
+          localStorage.clear();
+          history.push('/');
+        } }
+      >
+        Logout
+      </button>
       <Footer />
-      <section>
-        <h3 data-testid="profile-email">{`Email: ${email}`}</h3>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-          onClick={ () => history.push('/done-recipes') }
-        >
-          Done Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-          onClick={ () => history.push('/favorite-recipes') }
-        >
-          Favorite Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => {
-            localStorage.clear();
-            history.push('/');
-          } }
-        >
-          Logout
-        </button>
-      </section>
-    </div>
+    </section>
   );
 }
 
