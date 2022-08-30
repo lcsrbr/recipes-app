@@ -117,14 +117,6 @@ function RecipeDetails({ match }) {
           </div>
           <p>recomendações</p>
           <div className="recomendacoes">
-            <button
-              type="button"
-              onClick={ () => {
-                carousel.current.scrollLeft -= carousel.current.offsetWidth;
-              } }
-            >
-              Left
-            </button>
             <div className="carousel" ref={ carousel }>
               {recom && recom.map((item, index) => (
                 <div
