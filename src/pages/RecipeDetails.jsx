@@ -80,51 +80,82 @@ function RecipeDetails({ match }) {
     <div className="container">
       {details && (
         <section>
-          <h2 data-testid="recipe-title">
-            {details.strMeal || details.strDrink}
-          </h2>
+
           <img
             src={ details.strMealThumb || details.strDrinkThumb }
             alt="foto"
             width="150px"
             data-testid="recipe-photo"
           />
-          <p data-testid="recipe-category">
-            {history.location.pathname.includes('/foods')
-              ? details.strCategory
-              : details.strAlcoholic}
-          </p>
-
+          <div className="RecipesAndIcons">
+            <div>
+              <h2 data-testid="recipe-title" className="food-title">
+                {details.strMeal || details.strDrink}
+              </h2>
+              <p data-testid="recipe-category" className="recipe-category">
+                {history.location.pathname.includes('/foods')
+                  ? details.strCategory
+                  : details.strAlcoholic}
+              </p>
+            </div>
+            <div className="Icons">
+              <button
+                type="button"
+                onClick={ details && saveFavoriteLocalStorage }
+              >
+                <img
+                  src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+                  alt="fav"
+                  data-testid="favorite-btn"
+                />
+              </button>
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => {
+                  const url = history.location.pathname.includes('/foods')
+                    ? `foods/${match.params.id}` : `drinks/${match.params.id}`;
+                  copy(`http://localhost:3000/${url}`);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), seconds);
+                } }
+              >
+                <img src={ shareIcon } alt="compartilhar" />
+              </button>
+            </div>
+          </div>
           <div>
-            <h4>ingredientes</h4>
-            {[...strIngredient].map((ing, index) => (
-              details[ing] && (
-                <p
-                  key={ details[ing] }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {details[ing]}
-                  <br />
-                  {details[strMeasure[index]]}
-                </p>
-              )
-            ))}
+            {copied && <p>Link copied!</p> }
+            <h4 className="h4-ingredients">Ingredients</h4>
+            <div className="ingredients ingrDetails">
+              {' '}
+              {[...strIngredient].map((ing, index) => (
+                details[ing] && (
+                  <p
+                    key={ details[ing] }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {details[ing]}
+                    {': '}
+                    {details[strMeasure[index]]}
+                  </p>
+                )
+              ))}
+            </div>
           </div>
 
           <div>
-            <h4>instruções</h4>
-            <p data-testid="instructions">{details.strInstructions}</p>
-          </div>
-          <p>recomendações</p>
-          <div className="recomendacoes">
-            <button
-              type="button"
-              onClick={ () => {
-                carousel.current.scrollLeft -= carousel.current.offsetWidth;
-              } }
+            <h4 className="h4-instructions">Instructions</h4>
+            <p
+              data-testid="instructions"
+              className="instructions"
             >
-              Left
-            </button>
+              {details.strInstructions}
+
+            </p>
+          </div>
+          <p className="h4-instructions">Recomendations</p>
+          <div className="recomendacoes">
             <div className="carousel" ref={ carousel }>
               {recom && recom.map((item, index) => (
                 <div
@@ -151,50 +182,35 @@ function RecipeDetails({ match }) {
               ))}
             </div>
           </div>
-          {history.location.pathname.includes('/foods') && (
-            <video data-testid="video">
-              <track kind="captions" src={ details.strYoutube } />
-            </video>)}
-
         </section>
       )}
-      {copied && <p> Link copied!</p> }
-      <button
-        type="button"
-        onClick={ details && saveFavoriteLocalStorage }
-        data-testid="fav-btn"
-      >
-        <img
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="fav"
-          data-testid="favorite-btn"
-        />
-      </button>
-
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => {
-          copy(`http://localhost:3000${history.location.pathname}`);
-          setCopied(true);
-          setTimeout(() => setCopied(false), seconds);
-        } }
-      >
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
-
-      {!verifyRecipesDone() && (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="StartRecipe"
-          onClick={ () => {
-            history.push(`${history.location.pathname}/in-progress`);
-          } }
-        >
-          {!verifyRecipesProgress()
-            ? 'Start Recipe' : 'Continue Recipe'}
-        </button>)}
+      <div className="startButton">
+        {!verifyRecipesDone() && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className={ `enabledBtn 
+          flex
+          justify-center
+          py-4
+          leading-none
+           text-white
+            bg-orange-500
+             hover:bg-orange-700
+             transition
+             duration-300
+             font-semibold
+             rounded
+             StartRecipe
+             shadow` }
+            onClick={ () => {
+              history.push(`${history.location.pathname}/in-progress`);
+            } }
+          >
+            {!verifyRecipesProgress()
+              ? 'Start Recipe' : 'Continue Recipe'}
+          </button>)}
+      </div>
     </div>
   );
 }

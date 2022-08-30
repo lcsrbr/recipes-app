@@ -153,7 +153,7 @@ function RecipeInProgress({ match }) {
             </div>
           </div>
           <div>
-            <h4 className="h4-ingredients">Ingredientes</h4>
+            <h4 className="h4-ingredients">Ingredients</h4>
             <div className="ingredients">
               {details && strIngrs.map((ing, index) => (
                 <Ingredients2
@@ -167,7 +167,7 @@ function RecipeInProgress({ match }) {
           </div>
           <br />
           <div>
-            <h4 className="h4-instructions">Instruções</h4>
+            <h4 className="h4-instructions">Instructions</h4>
             <div className="instructions">
               <p data-testid="instructions">{details.strInstructions}</p>
             </div>
