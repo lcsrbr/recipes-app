@@ -10,7 +10,7 @@ function Profile() {
 
   return (
     <section
-      className="flex-col w-360 h-screen"
+      className="flex-col w-screen h-screen"
     >
       <Header />
       <h3
@@ -26,7 +26,7 @@ function Profile() {
         onClick={ () => history.push('/done-recipes') }
         className="flex justify-center container w-329
         h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
-        rounded-2xl p-2 text-xl text-slate-50"
+        rounded p-2 text-xl text-slate-50"
       >
         Done Recipes
       </button>
@@ -36,7 +36,7 @@ function Profile() {
         onClick={ () => history.push('/favorite-recipes') }
         className="flex justify-center container w-329
         h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
-        rounded-2xl p-2 text-xl text-slate-50"
+        rounded p-2 text-xl text-slate-50"
       >
         Favorite Recipes
       </button>
@@ -45,7 +45,7 @@ function Profile() {
         data-testid="profile-logout-btn"
         className="flex justify-center container w-329
         h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
-        rounded-2xl p-2 text-xl text-slate-50"
+        rounded p-2 text-xl text-slate-50"
         onClick={ () => {
           localStorage.clear();
           history.push('/');

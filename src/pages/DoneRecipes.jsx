@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import '../Css/FoodsFavorite.css';
 
 const time = 1000;
 
@@ -32,36 +33,50 @@ function DoneRecipes() {
   };
 
   return (
-    <div>
+    <div className="total">
       <Header />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ () => setFilter('') }
-      >
-        All
-      </button>
+      <div className="favorit-Btns">
+        <div>
+          <button
+            data-testid="filter-by-all-btn"
+            type="button"
+            onClick={ () => setFilter('') }
+            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+          >
+            All
+          </button>
+        </div>
+        <div>
 
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ () => setFilter('food') }
-      >
-        Food
-      </button>
-
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ () => setFilter('drink') }
-      >
-        Drinks
-      </button>
+          <button
+            data-testid="filter-by-food-btn"
+            type="button"
+            onClick={ () => setFilter('food') }
+            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+          >
+            Food
+          </button>
+        </div>
+        <div>
+          <button
+            data-testid="filter-by-drink-btn"
+            type="button"
+            onClick={ () => setFilter('drink') }
+            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+          >
+            Drinks
+          </button>
+        </div>
+      </div>
       <section>
         {done && done
           .filter((data) => (!filter ? data : data.type === filter))
           .map((data, index) => (
-            <div key={ data.id } data-testid={ `${index}-${data.name}-horizontal-tag` }>
+            <div
+              key={ data.id }
+              data-testid={ `${index}-${data.name}-horizontal-tag` }
+              className="favoritImg"
+            >
 
               <button
                 type="button"
@@ -69,6 +84,7 @@ function DoneRecipes() {
               >
                 <img
                   data-testid={ `${index}-horizontal-image` }
+                  className="recipesImg"
                   src={ data.image }
                   alt={ data.name }
                   width="150px"

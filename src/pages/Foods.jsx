@@ -63,8 +63,29 @@ function Foods() {
   return (
     <div>
       <Route exact path="/foods" component={ Header } />
-      Foods
-      <div className="teste">
+      <div className="componentItem">
+        <div className="categories">
+          { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
+            <button
+              key={ i }
+              type="button"
+              data-testid={ `${categoryName}-category-filter` }
+              onClick={ () => handleClick(categoryName) }
+              className="bg-orange-500 hover:bg-orange-700 ..."
+            >
+              {categoryName}
+            </button>
+          ))}
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => cocktailApi('Name', '')
+              .then((item) => dispatch(saveCocktailApi(item))) }
+            className="bg-orange-500 hover:bg-orange-700 ..."
+          >
+            All
+          </button>
+        </div>
         <div className="listItems">
           { storageFoods && storageFoods.slice(0, maxLength).map((food, index) => (
             <Recipes
@@ -75,25 +96,6 @@ function Foods() {
             />
           ))}
         </div>
-        { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
-          <button
-            key={ i }
-            type="button"
-            data-testid={ `${categoryName}-category-filter` }
-            value={ categoryName }
-            onClick={ () => handleClick(categoryName) }
-          >
-            {categoryName}
-          </button>
-        ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => foodApi('Name', '')
-            .then((item) => dispatch(saveFoodApi(item))) }
-        >
-          All
-        </button>
       </div>
       <Footer />
     </div>

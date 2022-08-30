@@ -50,7 +50,7 @@ function Login() {
       <div className="p-10">
         <div className="mb-6 mt-10">
           <input
-            className="focus:animate-pulse
+            className="
              apperance-none
              block w-full
              px-4 py-3
@@ -73,7 +73,7 @@ function Login() {
         <div className="mb-5">
           <input
             className="
-            focus:animate-pulse
+
             apperance-none
             block w-full
              px-4
