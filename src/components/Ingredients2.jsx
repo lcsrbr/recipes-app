@@ -78,7 +78,7 @@ function Ingredients2({ ing, index, details }) {
           ref={ checkbox }
           checked={ check }
         />)}
-        {`${details[ing]} ${details[strMeasure[index]]}`}
+        {`${details[ing]}: ${details[strMeasure[index]]}`}
         <br />
       </label>
     )

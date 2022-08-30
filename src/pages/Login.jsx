@@ -96,8 +96,10 @@ function Login() {
 
         <div className="mb-4 flex justify-center">
           <button
-            className="animate-bounce
+            className={ `
              inline-block
+             ${password.length > minLength && EmailValidator.validate(email)
+               && 'animate-bounce'}
              w-30 mt-10
              px-8 py-4
              leading-none
@@ -108,7 +110,7 @@ function Login() {
                 duration-300
                 font-semibold
                 rounded
-                shadow "
+                shadow ` }
             type="button"
             data-testid="login-submit-btn"
             onClick={ handleClick }
