@@ -86,7 +86,7 @@ function RecipeInProgress({ match }) {
       alcoholicOrNot: details.strAlcoholic || '',
       name: details.strMeal || details.strDrink,
       image: details.strMealThumb || details.strDrinkThumb,
-      doneDate: 'xx/xx/xx',
+      doneDate: '31/08/22',
       tags: [details.strTags],
     };
     if (!getLocalDone) {
