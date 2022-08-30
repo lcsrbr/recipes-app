@@ -31,8 +31,8 @@ function Ingredients2({ ing, index, details }) {
   const getLocal = JSON.parse(localStorage.getItem(inProgress));
   const isChecked = (target) => {
     if (!check) {
-      dispatch(saveIngredietns(1));
       setCheck(target.checked);
+      dispatch(saveIngredietns(1));
       const checkCollection = Array.from(target.parentNode.parentNode.children);
       checkCollection.shift();
       const arrayOfCheck = checkCollection.map((element) => (
@@ -41,14 +41,16 @@ function Ingredients2({ ing, index, details }) {
       if (target.checked && !getLocal) {
         const arr = [{ id: history.location.pathname,
           ings: [details[ing]],
-          arrayOfCheck }];
+          arrayOfCheck: [...arrayOfCheck, false] }];
         return localStorage.setItem(inProgress, JSON.stringify(arr));
       }
       if (target.checked) {
         const verify = getLocal.some(({ id }) => id === history.location.pathname);
         if (!verify) {
           const arr = [...getLocal,
-            { id: history.location.pathname, ings: [details[ing]], arrayOfCheck }];
+            { id: history.location.pathname,
+              ings: [details[ing]],
+              arrayOfCheck: [...arrayOfCheck, false] }];
           return localStorage.setItem(inProgress, JSON.stringify(arr));
         }
         addIngs(getLocal, history, details, ing);
