@@ -95,7 +95,7 @@ function FavoriteRecipes() {
                     src={ data.image }
                     alt={ data.name }
                     width="150px"
-                    className="recipesImg"
+                    className="Img"
 
                   />
                 </button>
