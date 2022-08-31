@@ -13,20 +13,27 @@ function Profile() {
       className="flex-col w-screen h-screen"
     >
       <Header />
-      <h3
-        data-testid="profile-email"
-        className="flex justify-center container w-225 h-35
-         mx-auto mt-10 text-2xl"
-      >
-        {email}
-      </h3>
+
+      <div>
+        <p className="mt-20 mb-2">You are logged in as: </p>
+        <h3
+          data-testid="profile-email"
+          className="flex justify-center container w-225 h-35
+         mx-auto text-2xl hover:scale-110 transition
+         duration-300"
+        >
+          {email}
+        </h3>
+      </div>
+
       <button
         type="button"
         data-testid="profile-done-btn"
         onClick={ () => history.push('/done-recipes') }
         className="flex justify-center container w-329
-        h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
-        rounded p-2 text-xl text-slate-50"
+        h-53 mx-auto mt-20 bg-orange-500 hover:bg-orange-600
+        rounded p-2 text-xl text-slate-50 max-w-xs transition
+        duration-300"
       >
         Done Recipes
       </button>
@@ -35,17 +42,21 @@ function Profile() {
         data-testid="profile-favorite-btn"
         onClick={ () => history.push('/favorite-recipes') }
         className="flex justify-center container w-329
-        h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
-        rounded p-2 text-xl text-slate-50"
+        h-53 mx-auto mt-10 mb-32 bg-orange-500 hover:bg-orange-600
+        rounded p-2 text-xl text-slate-50 max-w-xs transition
+        duration-300"
       >
         Favorite Recipes
       </button>
+
       <button
         type="button"
         data-testid="profile-logout-btn"
-        className="flex justify-center container w-329
-        h-53 mx-auto mt-10 bg-orange-500 hover:bg-orange-600
-        rounded p-2 text-xl text-slate-50"
+        className="content-end container w-329
+        h-53 mx-auto mt-20 bg-red-500
+        rounded p-2 text-xl text-slate-50 max-w-fit
+        hover:animate-pulse transition
+        duration-300 hover:bg-red-700 "
         onClick={ () => {
           localStorage.clear();
           history.push('/');
