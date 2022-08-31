@@ -1,53 +1,55 @@
 .componentItem {
-    margin: 50px 0;
-    width: 100%;
-    gap: 1em;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 50px 0;
+  width: 100%;
 }
 
 .recipesImg {
-    width: 80%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 1em;
-    border-radius: 4px;
-    transition-duration: 0.2s;
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  text-align: center;
+  transition-duration: 0.2s;
+  width: 80%;
 }
 
 .recipesImg:hover {
-    background-color: whitesmoke;
-    width: 82%;
+  background-color: whitesmoke;
+  width: 82%;
 }
 
 .recipesImg img {
-    border-radius: 4px;
-    transition-duration: 0.2s;
+  border-radius: 4px;
+  transition-duration: 0.2s;
 
 }
 
 .listItems {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 2em;
-    margin-bottom: 10px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .categories {
-    display: flex;
-    gap: 2em;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .categories button {
-    height: 50px;
-    width: 120px;
-    border-radius: 4px;
-    color: white;
+  border-radius: 4px;
+  color: white;
+  height: 50px;
+  width: 120px;
 }

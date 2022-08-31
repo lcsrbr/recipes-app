@@ -71,7 +71,8 @@ function Foods() {
               type="button"
               data-testid={ `${categoryName}-category-filter` }
               onClick={ () => handleClick(categoryName) }
-              className="bg-orange-500 hover:bg-orange-700 ..."
+              className="bg-orange-500 hover:bg-orange-700
+              hover:animate-pulse transition duration-300"
             >
               {categoryName}
             </button>
@@ -81,7 +82,8 @@ function Foods() {
             data-testid="All-category-filter"
             onClick={ () => cocktailApi('Name', '')
               .then((item) => dispatch(saveCocktailApi(item))) }
-            className="bg-orange-500 hover:bg-orange-700 ..."
+            className="bg-orange-500 hover:bg-orange-700
+            hover:animate-pulse transition duration-300"
           >
             All
           </button>

@@ -10,12 +10,12 @@ function Profile() {
 
   return (
     <section
-      className="flex-col w-screen h-screen"
+      className="flex-col w-screen h-screen mt-0"
     >
       <Header />
 
       <div>
-        <p className="mt-20 mb-2">You are logged in as: </p>
+        <p className="mt-24 mb-2">You are logged in as: </p>
         <h3
           data-testid="profile-email"
           className="flex justify-center container w-225 h-35
