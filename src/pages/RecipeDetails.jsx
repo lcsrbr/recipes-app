@@ -186,7 +186,7 @@ function RecipeDetails({ match }) {
                   <div
                     data-testid={ `${index}-recomendation-card` }
                     key={ index }
-                    className="item hover:scale-125 transition duration-400"
+                    className="item"
                   >
                     <p
                       data-testid={ `${index}-recomendation-title` }
@@ -200,11 +200,13 @@ function RecipeDetails({ match }) {
                       alt="foto"
                       data-testid="recipe-photo"
                       className="image shadow-sm shadow-slate-600 rounded"
-                      onClick={ () => history.push(
-                        history.location.pathname.includes('/foods')
+                      onClick={ () => {
+                        const url = history.location.pathname.includes('/foods')
                           ? `/drinks/${item.idDrink}`
-                          : `/foods/${item.idMeal}`,
-                      ) }
+                          : `/foods/${item.idMeal}`;
+                        history.push(url);
+                        window.location.reload(false);
+                      } }
                     />
                   </div>
                 ))}
