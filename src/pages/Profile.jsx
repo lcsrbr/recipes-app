@@ -51,7 +51,7 @@ function Profile() {
         type="button"
         data-testid="profile-logout-btn"
         className="content-end container w-329
-        h-53 mx-auto mt-20 bg-red-500
+        h-53 mx-auto mt-50 bg-red-500
         rounded p-2 text-xl text-slate-50 max-w-fit
         hover:animate-pulse transition
         duration-300 hover:bg-red-700 "

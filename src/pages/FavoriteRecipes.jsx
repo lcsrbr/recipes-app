@@ -2,6 +2,7 @@
 import copy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -137,6 +138,7 @@ function FavoriteRecipes() {
               </div>
             ))}
       </section>
+      <Footer />
     </div>
   );
 }

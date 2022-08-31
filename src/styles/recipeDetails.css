@@ -13,7 +13,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   text-align: center;
-  width: 450px;
+  width: 50vh;
 }
 
 .container .carousel::-webkit-scrollbar {
@@ -21,8 +21,8 @@
 }
 
 .container .carousel .item {
-  background-color: white;
-  border-radius: 16px;
+  background-color: gainsboro;
+  border-radius: 4px;
   flex: none;
   margin: 2px;
   padding: 2px;

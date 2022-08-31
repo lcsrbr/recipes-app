@@ -1,6 +1,7 @@
 import copy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/doneRecipes.css';
@@ -146,6 +147,7 @@ function DoneRecipes() {
               </div>
             ))}
       </section>
+      <Footer />
     </div>
   );
 }
