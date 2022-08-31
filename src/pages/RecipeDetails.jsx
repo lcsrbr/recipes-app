@@ -31,10 +31,11 @@ function RecipeDetails({ match }) {
     );
   };
 
-  const getApi = async () => {
+  const getApi = async (abortController) => {
     const response = await recipeDetailsApi(
       match.params.id,
       history.location.pathname,
+      abortController,
     );
     setDetails(response);
     const recommendations = await recommendationsApi(
@@ -45,7 +46,11 @@ function RecipeDetails({ match }) {
   };
 
   useEffect(() => {
-    getApi();
+    const abortController = new AbortController();
+
+    getApi({ signal: abortController.signal });
+
+    return () => abortController.abort();
   }, []);
 
   const strIngredient = details

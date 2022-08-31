@@ -21,19 +21,27 @@ function Drinks() {
   );
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const getCategoriesApi = async () => {
-      const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-      const response = await fetch(url);
-      const data = await response.json();
-      const values = data.drinks.map((test) => test.strCategory);
-      setReturnCategories(values);
+      try {
+        const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+        const response = await fetch(url, { signal: abortController.signal });
+        const data = await response.json();
+        const values = data.drinks.map((test) => test.strCategory);
+        setReturnCategories(values);
+      } catch (error) {
+        console.log(error);
+      }
     };
     const renderDrinks = () => {
       cocktailApi('Name', '').then((item) => dispatch(saveCocktailApi(item)));
     };
     renderDrinks();
     getCategoriesApi();
-  }, [dispatch]);
+
+    return () => abortController.abort();
+  }, []);
 
   const categoriesFunc = () => {
     const maxLength2 = 5;
