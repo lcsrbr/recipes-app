@@ -20,6 +20,7 @@ function RecipeInProgress({ match }) {
   const [isFavorite, setFavotite] = useState(false);
   const [strIngrs, setStrIngrs] = useState([]);
   const [btnFinish, setBtnFinish] = useState(false);
+  const [btnFinishRender, setBtnFinishRender] = useState(false);
   const arrayOf = useSelector(({ ingredients }) => ingredients.ingredients);
 
   const history = useHistory();
@@ -37,7 +38,7 @@ function RecipeInProgress({ match }) {
         const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
         if (!getlocal) return false;
         return getlocal.some(
-          ({ id }) => id === response.idMeal || response.idDrink,
+          ({ id }) => id === history.location.pathname,
         );
       };
       setStrIngrs(strIngredient);
@@ -46,16 +47,16 @@ function RecipeInProgress({ match }) {
     getApi();
   }, [match.params.id, history.location.pathname]);
 
-  const getLocalCheck = JSON.parse(localStorage.getItem('in-progress'));
-
   useEffect(() => {
+    const getLocalCheck = JSON.parse(localStorage.getItem('in-progress'));
     if (getLocalCheck && strIngrs) {
       getLocalCheck.forEach((obj) => {
         if (obj.id === history.location.pathname) {
-          setBtnFinish(arrayOf === obj.arrayOfCheck.length);
+          setBtnFinish(obj.arrayOfCheck.length === obj.ings.length);
         }
       });
     }
+    setBtnFinishRender(true);
   }, [arrayOf]);
 
   const saveFavoriteLocalStorage = () => {
@@ -196,10 +197,11 @@ function RecipeInProgress({ match }) {
           </div>
         </section>
       )}
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        className={ `enabledBtn 
+      {btnFinishRender && (
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          className={ `enabledBtn 
         ${!btnFinish && 'cursor-not-allowed'}
         ${!btnFinish && 'bg-slate-300'} flex
         justify-center
@@ -217,11 +219,11 @@ function RecipeInProgress({ match }) {
            rounded
            shadow
            ` }
-        disabled={ !btnFinish }
-        onClick={ doneRecipes }
-      >
-        Finish
-      </button>
+          disabled={ !btnFinish }
+          onClick={ doneRecipes }
+        >
+          Finish
+        </button>)}
       <button
         type="button"
         className={ ` enabledBtn ${btnFinish && 'mb-2'} 
