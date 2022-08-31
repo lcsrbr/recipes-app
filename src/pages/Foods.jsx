@@ -20,18 +20,26 @@ function Foods() {
   const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const getCategoriesApi = async () => {
-      const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-      const response = await fetch(url);
-      const data = await response.json();
-      const values = data.meals.map((test) => test.strCategory);
-      setReturnCategories(values);
+      try {
+        const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+        const response = await fetch(url, { signal: abortController.signal });
+        const data = await response.json();
+        const values = data.meals.map((test) => test.strCategory);
+        setReturnCategories(values);
+      } catch (error) {
+        console.log(error);
+      }
     };
     const renderFoods = () => foodApi('Name', '')
       .then((item) => dispatch(saveFoodApi(item)));
     renderFoods();
     getCategoriesApi();
-  }, [dispatch]);
+
+    return () => abortController.abort();
+  }, []);
 
   const categoriesFunc = () => {
     const maxLength2 = 5;
@@ -51,10 +59,12 @@ function Foods() {
   const handleClick = (categoryName) => {
     if (toggle === true) {
       foodApi('Categories', categoryName).then((item) => dispatch(saveFoodApi(item)));
+      return;
     }
     setToggle(!toggle);
     if (toggle === false) {
       foodApi('Name', '').then((item) => dispatch(saveFoodApi(item)));
+      return;
     }
     if (storageFoods.length === 1) {
       setToggle(false);
