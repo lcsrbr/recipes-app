@@ -8,10 +8,12 @@
 
 .container .carousel {
   display: flex;
+  height: 130px;
+  margin-bottom: 30px;
   overflow-x: auto;
   scroll-behavior: smooth;
   text-align: center;
-  width: 350px;
+  width: 450px;
 }
 
 .container .carousel::-webkit-scrollbar {
@@ -45,7 +47,16 @@
   align-items: center;
   flex-wrap: wrap;
   height: auto;
-  width: 45vh;
+  width: 30vh;
+}
+
+.ingrDetails li:first-child {
+  margin-top: 15px;
+}
+
+.ingrDetails li:last-child {
+  margin-bottom: 15px;
+
 }
 
 .h4-instructions {
@@ -62,12 +73,18 @@
 }
 
 .recomendacoes {
-  border: 1px rgb(245, 162, 66) solid;
   border-radius: 4px;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 .startButton {
   display: flex;
   justify-content: center;
+}
+
+.Icons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: -20px;
 }

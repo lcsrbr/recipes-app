@@ -18,8 +18,10 @@ function Ingredients2({ ing, index, details }) {
   const checkedVerify = () => {
     const getLocal = JSON.parse(localStorage.getItem(inProgress));
     if (getLocal) {
-      getLocal.forEach((item) => item.id === history.location.pathname
-      && setCheck(item.ings.includes(details[ing])));
+      getLocal.forEach(
+        (item) => item.id === history.location.pathname
+          && setCheck(item.ings.includes(details[ing])),
+      );
     }
     setCheckLocal(true);
   };
@@ -35,22 +37,32 @@ function Ingredients2({ ing, index, details }) {
       dispatch(saveIngredietns(1));
       const checkCollection = Array.from(target.parentNode.parentNode.children);
       checkCollection.shift();
-      const arrayOfCheck = checkCollection.map((element) => (
-        element.dataset.check
-      ));
+      const arrayOfCheck = checkCollection.map(
+        (element) => element.dataset.check,
+      );
       if (target.checked && !getLocal) {
-        const arr = [{ id: history.location.pathname,
-          ings: [details[ing]],
-          arrayOfCheck: [...arrayOfCheck, false] }];
+        const arr = [
+          {
+            id: history.location.pathname,
+            ings: [details[ing]],
+            arrayOfCheck: [...arrayOfCheck, false],
+          },
+        ];
         return localStorage.setItem(inProgress, JSON.stringify(arr));
       }
       if (target.checked) {
-        const verify = getLocal.some(({ id }) => id === history.location.pathname);
+        const verify = getLocal.some(
+          ({ id }) => id === history.location.pathname,
+        );
         if (!verify) {
-          const arr = [...getLocal,
-            { id: history.location.pathname,
+          const arr = [
+            ...getLocal,
+            {
+              id: history.location.pathname,
               ings: [details[ing]],
-              arrayOfCheck: [...arrayOfCheck, false] }];
+              arrayOfCheck: [...arrayOfCheck, false],
+            },
+          ];
           return localStorage.setItem(inProgress, JSON.stringify(arr));
         }
         addIngs(getLocal, history, details, ing);
@@ -70,14 +82,18 @@ function Ingredients2({ ing, index, details }) {
         style={ {
           textDecoration: check && 'line-through',
         } }
+        className="mt-3 mb-3"
       >
-        {checkLocal && (<input
-          type="checkbox"
-          id={ index }
-          onChange={ ({ target }) => isChecked(target) }
-          ref={ checkbox }
-          checked={ check }
-        />)}
+        {checkLocal && (
+          <input
+            type="checkbox"
+            id={ index }
+            onChange={ ({ target }) => isChecked(target) }
+            ref={ checkbox }
+            checked={ check }
+            className="mr-3"
+          />
+        )}
         {`${details[ing]}: ${details[strMeasure[index]]}`}
         <br />
       </label>

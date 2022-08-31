@@ -16,8 +16,9 @@ function Drinks() {
   const [returnCategories, setReturnCategories] = useState([]);
   const [toggle, setToggle] = useState(true);
 
-  const storageCocktails = useSelector(({ searchCocktailApi }) => (
-    searchCocktailApi.cocktailApi));
+  const storageCocktails = useSelector(
+    ({ searchCocktailApi }) => searchCocktailApi.cocktailApi,
+  );
 
   useEffect(() => {
     const getCategoriesApi = async () => {
@@ -37,8 +38,9 @@ function Drinks() {
   const categoriesFunc = () => {
     const maxLength2 = 5;
     const filteredArray = returnCategories
-    && returnCategories.filter((ele, pos) => returnCategories.indexOf(ele)
-   === pos).slice(0, maxLength2);
+      && returnCategories
+        .filter((ele, pos) => returnCategories.indexOf(ele) === pos)
+        .slice(0, maxLength2);
     return filteredArray;
   };
 
@@ -55,8 +57,7 @@ function Drinks() {
     }
     setToggle(!toggle);
     if (toggle === false) {
-      cocktailApi('Name', '')
-        .then((item) => dispatch(saveCocktailApi(item)));
+      cocktailApi('Name', '').then((item) => dispatch(saveCocktailApi(item)));
     }
   };
 
@@ -65,17 +66,18 @@ function Drinks() {
       <Route exact path="/drinks" component={ Header } />
       <div className="componentItem">
         <div className="categories">
-          { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
-            <button
-              key={ i }
-              type="button"
-              data-testid={ `${categoryName}-category-filter` }
-              onClick={ () => handleClick(categoryName) }
-              className="bg-orange-500 hover:bg-orange-700 ..."
-            >
-              {categoryName}
-            </button>
-          ))}
+          {returnCategories.length > 0
+            && categoriesFunc().map((categoryName, i) => (
+              <button
+                key={ i }
+                type="button"
+                data-testid={ `${categoryName}-category-filter` }
+                onClick={ () => handleClick(categoryName) }
+                className="bg-orange-500 hover:bg-orange-700 ..."
+              >
+                {categoryName}
+              </button>
+            ))}
           <button
             type="button"
             data-testid="All-category-filter"
@@ -87,17 +89,18 @@ function Drinks() {
           </button>
         </div>
         <div className="listItems">
-          { storageCocktails && storageCocktails.slice(0, maxLength)
-            .map((drink, index) => (
-              <Recipes
-                key={ index }
-                recipe={ drink }
-                index={ index }
-                recipes={ storageCocktails.slice(0, maxLength) }
-              />
-            ))}
+          {storageCocktails
+            && storageCocktails
+              .slice(0, maxLength)
+              .map((drink, index) => (
+                <Recipes
+                  key={ index }
+                  recipe={ drink }
+                  index={ index }
+                  recipes={ storageCocktails.slice(0, maxLength) }
+                />
+              ))}
         </div>
-
       </div>
       <Footer />
     </div>

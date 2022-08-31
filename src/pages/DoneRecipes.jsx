@@ -35,24 +35,25 @@ function DoneRecipes() {
   return (
     <div className="total">
       <Header />
-      <div className="favorit-Btns">
+      <div className="favorit-Btns mt-20">
         <div>
           <button
             data-testid="filter-by-all-btn"
             type="button"
             onClick={ () => setFilter('') }
-            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+            className="bg-orange-500 hover:bg-orange-700
+            transition duration-300 favorit-All"
           >
             All
           </button>
         </div>
         <div>
-
           <button
             data-testid="filter-by-food-btn"
             type="button"
             onClick={ () => setFilter('food') }
-            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+            className="bg-orange-500 hover:bg-orange-700
+            transition duration-300 favorit-All"
           >
             Food
           </button>
@@ -62,73 +63,88 @@ function DoneRecipes() {
             data-testid="filter-by-drink-btn"
             type="button"
             onClick={ () => setFilter('drink') }
-            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+            className="bg-orange-500 hover:bg-orange-700
+            transition duration-300 favorit-All"
           >
             Drinks
           </button>
         </div>
       </div>
       <section>
-        {done && done
-          .filter((data) => (!filter ? data : data.type === filter))
-          .map((data, index) => (
-            <div
-              key={ data.id }
-              data-testid={ `${index}-${data.name}-horizontal-tag` }
-              className="donRecipes"
-            >
-              <div>
-                <button
-                  type="button"
-                  onClick={ () => redirectDetails(data.id, data.type) }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-image` }
-                    src={ data.image }
-                    alt={ data.name }
-                    className="Img"
-                  />
-                </button>
-              </div>
-              <div>
-                <div className=".donRecipesBth">
-                  <p
-                    data-testid={ `${index}-horizontal-top-text` }
-                  >
-                    {data.type === 'food'
-                      ? `${data.nationality} - ${data.category}` : data.alcoholicOrNot}
-                  </p>
+        {done
+          && done
+            .filter((data) => (!filter ? data : data.type === filter))
+            .map((data, index) => (
+              <div
+                key={ data.id }
+                data-testid={ `${index}-${data.name}-horizontal-tag` }
+                className="donRecipes mb-4"
+              >
+                <div>
                   <button
-                    data-testid={ `${index}-horizontal-name` }
                     type="button"
                     onClick={ () => redirectDetails(data.id, data.type) }
                   >
-                    {data.name}
-
+                    <img
+                      data-testid={ `${index}-horizontal-image` }
+                      src={ data.image }
+                      alt={ data.name }
+                      className="Img rounded shadow-sm shadow-slate-500"
+                    />
                   </button>
                 </div>
                 <div>
-                  <p data-testid={ `${index}-horizontal-done-date` }>{data.doneDate}</p>
-                  {data.tags && data.tags.map((value) => (
-                    <p
-                      data-testid={ `${index}-${value}-horizontal-tag` }
-                      key={ value }
+                  <div className=".donRecipesBth mt-3">
+                    <button
+                      data-testid={ `${index}-horizontal-name` }
+                      type="button"
+                      onClick={ () => redirectDetails(data.id, data.type) }
                     >
-                      {value}
+                      <strong className="text-xl">{data.name}</strong>
+                    </button>
+                    <p data-testid={ `${index}-horizontal-top-text` }>
+                      {data.type === 'food'
+                        ? `${data.nationality} - ${data.category}`
+                        : data.alcoholicOrNot}
                     </p>
-                  ))}
-                  {copied && <p data-testid="Link-copied">Link copied!</p>}
-                  <input
-                    type="image"
-                    src={ shareIcon }
-                    alt={ data.name }
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    onClick={ () => handleShare(data.id, data.type) }
-                  />
+                  </div>
+                  <div>
+                    <p
+                      className="mt-3"
+                      data-testid={ `${index}-horizontal-done-date` }
+                    >
+                      {data.doneDate}
+                    </p>
+                    {data.tags
+                      && data.tags.map((value) => (
+                        <p
+                          data-testid={ `${index}-${value}-horizontal-tag` }
+                          key={ value }
+                          className="mt-5"
+                        >
+                          {value}
+                        </p>
+                      ))}
+                    <input
+                      type="image"
+                      src={ shareIcon }
+                      alt={ data.name }
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      onClick={ () => handleShare(data.id, data.type) }
+                    />
+                    {copied && (
+                      <p
+                        className="mt-3 text-xs
+                        mb-3"
+                        data-testid="Link-copied"
+                      >
+                        Link copied!
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
       </section>
     </div>
   );

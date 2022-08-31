@@ -13,7 +13,9 @@ const maxLength = 12;
 function Foods() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const storageFoods = useSelector(({ searchFoodApi }) => searchFoodApi.foodApi);
+  const storageFoods = useSelector(
+    ({ searchFoodApi }) => searchFoodApi.foodApi,
+  );
   const [returnCategories, setReturnCategories] = useState([]);
   const [toggle, setToggle] = useState(true);
 
@@ -25,9 +27,8 @@ function Foods() {
       const values = data.meals.map((test) => test.strCategory);
       setReturnCategories(values);
     };
-    const renderFoods = () => (
-      foodApi('Name', '').then((item) => dispatch(saveFoodApi(item)))
-    );
+    const renderFoods = () => foodApi('Name', '')
+      .then((item) => dispatch(saveFoodApi(item)));
     renderFoods();
     getCategoriesApi();
   }, [dispatch]);
@@ -35,8 +36,9 @@ function Foods() {
   const categoriesFunc = () => {
     const maxLength2 = 5;
     const filteredArray = returnCategories
-    && returnCategories.filter((ele, pos) => returnCategories.indexOf(ele)
-   === pos).slice(0, maxLength2);
+      && returnCategories
+        .filter((ele, pos) => returnCategories.indexOf(ele) === pos)
+        .slice(0, maxLength2);
     return filteredArray;
   };
 
@@ -48,13 +50,11 @@ function Foods() {
 
   const handleClick = (categoryName) => {
     if (toggle === true) {
-      foodApi('Categories', categoryName)
-        .then((item) => dispatch(saveFoodApi(item)));
+      foodApi('Categories', categoryName).then((item) => dispatch(saveFoodApi(item)));
     }
     setToggle(!toggle);
     if (toggle === false) {
-      foodApi('Name', '')
-        .then((item) => dispatch(saveFoodApi(item)));
+      foodApi('Name', '').then((item) => dispatch(saveFoodApi(item)));
     }
     if (storageFoods.length === 1) {
       setToggle(false);
@@ -65,18 +65,19 @@ function Foods() {
       <Route exact path="/foods" component={ Header } />
       <div className="componentItem">
         <div className="categories">
-          { returnCategories.length > 0 && categoriesFunc().map((categoryName, i) => (
-            <button
-              key={ i }
-              type="button"
-              data-testid={ `${categoryName}-category-filter` }
-              onClick={ () => handleClick(categoryName) }
-              className="bg-orange-500 hover:bg-orange-700
+          {returnCategories.length > 0
+            && categoriesFunc().map((categoryName, i) => (
+              <button
+                key={ i }
+                type="button"
+                data-testid={ `${categoryName}-category-filter` }
+                onClick={ () => handleClick(categoryName) }
+                className="bg-orange-500 hover:bg-orange-700
               hover:animate-pulse transition duration-300"
-            >
-              {categoryName}
-            </button>
-          ))}
+              >
+                {categoryName}
+              </button>
+            ))}
           <button
             type="button"
             data-testid="All-category-filter"
@@ -89,14 +90,17 @@ function Foods() {
           </button>
         </div>
         <div className="listItems">
-          { storageFoods && storageFoods.slice(0, maxLength).map((food, index) => (
-            <Recipes
-              key={ index }
-              recipe={ food }
-              index={ index }
-              recipes={ storageFoods.slice(0, maxLength) }
-            />
-          ))}
+          {storageFoods
+            && storageFoods
+              .slice(0, maxLength)
+              .map((food, index) => (
+                <Recipes
+                  key={ index }
+                  recipe={ food }
+                  index={ index }
+                  recipes={ storageFoods.slice(0, maxLength) }
+                />
+              ))}
         </div>
       </div>
       <Footer />

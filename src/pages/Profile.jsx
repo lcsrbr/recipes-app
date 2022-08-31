@@ -9,9 +9,7 @@ function Profile() {
   const history = useHistory();
 
   return (
-    <section
-      className="flex-col w-screen h-screen mt-0"
-    >
+    <section className="flex-col w-screen h-screen mt-0">
       <Header />
 
       <div>

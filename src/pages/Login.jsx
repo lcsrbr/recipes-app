@@ -98,7 +98,8 @@ function Login() {
           <button
             className={ `
              inline-block
-             ${password.length > minLength && EmailValidator.validate(email)
+             ${password.length > minLength
+               && EmailValidator.validate(email)
                && 'animate-bounce'}
              w-30 mt-10
              px-8 py-4

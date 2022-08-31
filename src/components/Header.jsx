@@ -16,7 +16,7 @@ function Header() {
     '/profile': 'Profile',
     '/done-recipes': 'Done Recipes',
     '/favorite-recipes': 'Favorite Recipes',
-  })[history.location.pathname];
+  }[history.location.pathname]);
 
   const dynamicSearchIcon = () => ({
     '/foods': false,
@@ -24,7 +24,7 @@ function Header() {
     '/profile': true,
     '/done-recipes': true,
     '/favorite-recipes': true,
-  })[history.location.pathname];
+  }[history.location.pathname]);
 
   return (
     <header className="shadow-lg shadow-grey-500/20">
@@ -36,27 +36,20 @@ function Header() {
             data-testid="profile-top-btn"
           />
         </Link>
-        <h1
-          data-testid="page-title"
-          className="text-3xl font-light"
-        >
-          { dynamicTitle() }
-
+        <h1 data-testid="page-title" className="text-3xl font-light">
+          {dynamicTitle()}
         </h1>
-        { !dynamicSearchIcon() && (
-          <button
-            type="button"
-            onClick={ () => setToogle((prev) => !prev) }
-          >
+        {!dynamicSearchIcon() && (
+          <button type="button" onClick={ () => setToogle((prev) => !prev) }>
             <img
               data-testid="search-top-btn"
               src={ searchIcon }
               alt="search icon"
             />
           </button>
-        ) }
+        )}
       </div>
-      {toogle && <SearchBar /> }
+      {toogle && <SearchBar />}
     </header>
   );
 }

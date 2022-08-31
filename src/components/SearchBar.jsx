@@ -17,11 +17,11 @@ function SearchBar() {
     if (searchFilter === 'First-letter' && searchInput.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
-    return history.location.pathname === '/foods' ? foodApi(searchFilter, searchInput)
-      .then((item) => dispatch(saveFoodApi(item)))
+    return history.location.pathname === '/foods'
+      ? foodApi(searchFilter, searchInput)
+        .then((item) => dispatch(saveFoodApi(item)))
       : cocktailApi(searchFilter, searchInput)
         .then((item) => dispatch(saveCocktailApi(item)));
-    // getApiCocktail(window.location.pathname);
   };
 
   return (
@@ -46,24 +46,10 @@ function SearchBar() {
               focus:outline-none"
       />
       <div className="selectAndSearch">
-        <select
-          onClick={ ({ target }) => setSearchFilter(target.value) }
-        >
-          <option
-            value="Ingredient"
-          >
-            Ingredient
-          </option>
-          <option
-            value="Name"
-          >
-            Name
-          </option>
-          <option
-            value="First-letter"
-          >
-            First letter
-          </option>
+        <select onClick={ ({ target }) => setSearchFilter(target.value) }>
+          <option value="Ingredient">Ingredient</option>
+          <option value="Name">Name</option>
+          <option value="First-letter">First letter</option>
         </select>
         <button
           type="button"

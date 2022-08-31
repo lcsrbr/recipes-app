@@ -7,15 +7,16 @@
 .donRecipes {
   align-items: center;
   background: white;
-  border: rgb(250, 250, 250) 0.2em solid;
   border-radius: 0.4em;
   box-shadow: 0.3em 0.3em 0.4em #00000060;
   display: flex;
   flex-direction: column;
-  height: 380px;
   justify-content: center;
-  margin-top: 20px;
   text-align: center;
   transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 250px;
+}
+
+.donRecipes img {
+  margin-top: 10px;
 }

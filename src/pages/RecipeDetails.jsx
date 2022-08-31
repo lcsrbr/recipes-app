@@ -23,14 +23,21 @@ function RecipeDetails({ match }) {
   const history = useHistory();
   useEffect(() => {
     const getApi = async () => {
-      const response = await recipeDetailsApi(match.params.id, history.location.pathname);
+      const response = await recipeDetailsApi(
+        match.params.id,
+        history.location.pathname,
+      );
       setDetails(response);
-      const recommendations = await recommendationsApi(history.location.pathname);
+      const recommendations = await recommendationsApi(
+        history.location.pathname,
+      );
       setRecom(recommendations.slice(0, seis));
       const verifyFavorite = () => {
         const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
         if (!getlocal) return false;
-        return getlocal.some(({ id }) => id === response.idMeal || response.idDrink);
+        return getlocal.some(
+          ({ id }) => id === response.idMeal || response.idDrink,
+        );
       };
       setFavotite(verifyFavorite());
     };
@@ -38,30 +45,35 @@ function RecipeDetails({ match }) {
   }, [match.params.id, history.location.pathname]);
 
   const strIngredient = details
-  && Object.keys(details).filter((item) => item.includes('strIngredient'));
+    && Object.keys(details).filter((item) => item.includes('strIngredient'));
 
   const strMeasure = details
     && Object.keys(details).filter((item) => item.includes('strMeasure'));
 
   const saveFavoriteLocalStorage = () => {
     const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const local = [...(getlocal || []), {
-      id: details.idMeal || details.idDrink,
-      type: history.location.pathname.includes('/foods')
-        ? 'food'
-        : 'drink',
-      nationality: details.strArea || '',
-      category: details.strCategory,
-      alcoholicOrNot: details.strAlcoholic || '',
-      name: details.strMeal || details.strDrink,
-      image: details.strMealThumb || details.strDrinkThumb,
-    }];
+    const local = [
+      ...(getlocal || []),
+      {
+        id: details.idMeal || details.idDrink,
+        type: history.location.pathname.includes('/foods') ? 'food' : 'drink',
+        nationality: details.strArea || '',
+        category: details.strCategory,
+        alcoholicOrNot: details.strAlcoholic || '',
+        name: details.strMeal || details.strDrink,
+        image: details.strMealThumb || details.strDrinkThumb,
+      },
+    ];
     if (!isFavorite) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(local));
       return setFavotite(!isFavorite);
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(getlocal
-      .filter(({ id }) => id !== (details.idDrink || details.idMeal))));
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify(
+        getlocal.filter(({ id }) => id !== (details.idDrink || details.idMeal)),
+      ),
+    );
     return setFavotite(!isFavorite);
   };
 
@@ -80,16 +92,9 @@ function RecipeDetails({ match }) {
     <div className="container">
       {details && (
         <section>
-
-          <img
-            src={ details.strMealThumb || details.strDrinkThumb }
-            alt="foto"
-            width="150px"
-            data-testid="recipe-photo"
-          />
           <div className="RecipesAndIcons">
             <div>
-              <h2 data-testid="recipe-title" className="food-title">
+              <h2 data-testid="recipe-title" className="food-title -mt-7">
                 {details.strMeal || details.strDrink}
               </h2>
               <p data-testid="recipe-category" className="recipe-category">
@@ -98,6 +103,7 @@ function RecipeDetails({ match }) {
                   : details.strAlcoholic}
               </p>
             </div>
+
             <div className="Icons">
               <button
                 type="button"
@@ -107,79 +113,94 @@ function RecipeDetails({ match }) {
                   src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
                   alt="fav"
                   data-testid="favorite-btn"
+                  className="mb-7 hover:scale-125 transition duration-300"
                 />
               </button>
+
               <button
                 type="button"
                 data-testid="share-btn"
                 onClick={ () => {
                   const url = history.location.pathname.includes('/foods')
-                    ? `foods/${match.params.id}` : `drinks/${match.params.id}`;
+                    ? `foods/${match.params.id}`
+                    : `drinks/${match.params.id}`;
                   copy(`http://localhost:3000/${url}`);
                   setCopied(true);
                   setTimeout(() => setCopied(false), seconds);
                 } }
+                className="hover:scale-125 transition duration-300"
               >
                 <img src={ shareIcon } alt="compartilhar" />
               </button>
+              {copied && <p className="mt-5 text-xs ">Link copied!</p>}
             </div>
+
+            <img
+              src={ details.strMealThumb || details.strDrinkThumb }
+              alt="foto"
+              width="150px"
+              data-testid="recipe-photo"
+            />
           </div>
+
           <div>
-            {copied && <p>Link copied!</p> }
-            <h4 className="h4-ingredients">Ingredients</h4>
-            <div className="ingredients ingrDetails">
-              {' '}
-              {[...strIngredient].map((ing, index) => (
-                details[ing] && (
-                  <p
+            <h4 className="h4-ingredients mb-3">Ingredients</h4>
+            <ul className="ingredients ingrDetails ">
+              {[...strIngredient].map(
+                (ing, index, arr) => details[ing] && (
+                  <li
                     key={ details[ing] }
                     data-testid={ `${index}-ingredient-name-and-measure` }
+                    className={ `
+                    ${index === arr.length - 1 ? 'mb-3' : 'mb-0'} 
+                    hover:scale-150 transition duration-200 ` }
                   >
                     {details[ing]}
                     {': '}
                     {details[strMeasure[index]]}
-                  </p>
-                )
-              ))}
-            </div>
+                  </li>
+                ),
+              )}
+            </ul>
           </div>
 
           <div>
-            <h4 className="h4-instructions">Instructions</h4>
-            <p
-              data-testid="instructions"
-              className="instructions"
-            >
+            <h4 className="h4-instructions mt-5 mb-2">Instructions</h4>
+            <p data-testid="instructions" className="instructions rounded">
               {details.strInstructions}
-
             </p>
           </div>
-          <p className="h4-instructions">Recomendations</p>
-          <div className="recomendacoes">
-            <div className="carousel" ref={ carousel }>
-              {recom && recom.map((item, index) => (
-                <div
-                  data-testid={ `${index}-recomendation-card` }
-                  key={ index }
-                  className="item"
-                >
-                  <p
-                    data-testid={ `${index}-recomendation-title` }
+          <p className="h4-instructions mt-5 mb-3">Recomendations</p>
+
+          <div className="recomendacoes mt-2 ">
+            <div className="carousel hover:text-white " ref={ carousel }>
+              {recom
+                && recom.map((item, index) => (
+                  <div
+                    data-testid={ `${index}-recomendation-card` }
+                    key={ index }
+                    className="item hover:scale-125 transition duration-400"
                   >
-                    {item.strMeal || item.strDrink}
-                  </p>
-                  <input
-                    type="image"
-                    src={ item.strMealThumb || item.strDrinkThumb }
-                    alt="foto"
-                    data-testid="recipe-photo"
-                    className="image"
-                    onClick={ () => history.push(history
-                      .location.pathname.includes('/foods')
-                      ? `/drinks/${item.idDrink}` : `/foods/${item.idMeal}`) }
-                  />
-                </div>
-              ))}
+                    <p
+                      data-testid={ `${index}-recomendation-title` }
+                      className=""
+                    >
+                      {item.strMeal || item.strDrink}
+                    </p>
+                    <input
+                      type="image"
+                      src={ item.strMealThumb || item.strDrinkThumb }
+                      alt="foto"
+                      data-testid="recipe-photo"
+                      className="image shadow-sm shadow-slate-600 rounded"
+                      onClick={ () => history.push(
+                        history.location.pathname.includes('/foods')
+                          ? `/drinks/${item.idDrink}`
+                          : `/foods/${item.idMeal}`,
+                      ) }
+                    />
+                  </div>
+                ))}
             </div>
           </div>
         </section>
@@ -197,6 +218,7 @@ function RecipeDetails({ match }) {
            text-white
             bg-orange-500
              hover:bg-orange-700
+             animate-bounce
              transition
              duration-300
              font-semibold
@@ -207,9 +229,9 @@ function RecipeDetails({ match }) {
               history.push(`${history.location.pathname}/in-progress`);
             } }
           >
-            {!verifyRecipesProgress()
-              ? 'Start Recipe' : 'Continue Recipe'}
-          </button>)}
+            {!verifyRecipesProgress() ? 'Start Recipe' : 'Continue Recipe'}
+          </button>
+        )}
       </div>
     </div>
   );
