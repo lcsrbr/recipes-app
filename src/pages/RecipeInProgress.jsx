@@ -169,9 +169,8 @@ function RecipeInProgress({ match }) {
           </div>
           <div>
             <div
-              className="ingredients mt-5 hover:scale-125 transition
+              className="ingredients mt-5 transition
               duration-400
-              hover:mt-5
               shadow-sm
               shadow-slate-400
               "
@@ -216,7 +215,6 @@ function RecipeInProgress({ match }) {
            transition
            duration-300
            font-semibold
-           rounded
            shadow
            ` }
           disabled={ !btnFinish }
@@ -227,10 +225,11 @@ function RecipeInProgress({ match }) {
       <button
         type="button"
         className={ ` enabledBtn ${btnFinish && 'mb-2'} 
+        ${btnFinish && 'animate-pulse'}
         flex justify-center container w-30
         px-8 py-4 leading-none text-white bg-orange-500
       hover:bg-orange-700 transition duration-300 font-semibold
-        rounded shadow` }
+        shadow` }
         onClick={ () => history.goBack() }
       >
         Go back
