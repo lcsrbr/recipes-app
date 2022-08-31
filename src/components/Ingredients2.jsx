@@ -45,7 +45,7 @@ function Ingredients2({ ing, index, details }) {
           {
             id: history.location.pathname,
             ings: [details[ing]],
-            arrayOfCheck: [...arrayOfCheck, false],
+            arrayOfCheck: [...arrayOfCheck],
           },
         ];
         return localStorage.setItem(inProgress, JSON.stringify(arr));
@@ -60,7 +60,7 @@ function Ingredients2({ ing, index, details }) {
             {
               id: history.location.pathname,
               ings: [details[ing]],
-              arrayOfCheck: [...arrayOfCheck, false],
+              arrayOfCheck: [...arrayOfCheck],
             },
           ];
           return localStorage.setItem(inProgress, JSON.stringify(arr));

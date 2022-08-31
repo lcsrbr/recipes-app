@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable max-lines */
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
@@ -18,31 +20,33 @@ function RecipeDetails({ match }) {
   const [recom, setRecom] = useState(null);
   const [copied, setCopied] = useState(false);
   const [isFavorite, setFavotite] = useState(false);
-
-  const carousel = useRef(null);
+  const divContainer = useRef(null);
   const history = useHistory();
+
+  const verifyFavorite = () => {
+    const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!getlocal) return false;
+    return getlocal.some(
+      ({ id }) => id === history.location.pathname,
+    );
+  };
+
+  const getApi = async () => {
+    const response = await recipeDetailsApi(
+      match.params.id,
+      history.location.pathname,
+    );
+    setDetails(response);
+    const recommendations = await recommendationsApi(
+      history.location.pathname,
+    );
+    setRecom(recommendations.slice(0, seis));
+    setFavotite(verifyFavorite());
+  };
+
   useEffect(() => {
-    const getApi = async () => {
-      const response = await recipeDetailsApi(
-        match.params.id,
-        history.location.pathname,
-      );
-      setDetails(response);
-      const recommendations = await recommendationsApi(
-        history.location.pathname,
-      );
-      setRecom(recommendations.slice(0, seis));
-      const verifyFavorite = () => {
-        const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-        if (!getlocal) return false;
-        return getlocal.some(
-          ({ id }) => id === response.idMeal || response.idDrink,
-        );
-      };
-      setFavotite(verifyFavorite());
-    };
     getApi();
-  }, [match.params.id, history.location.pathname]);
+  }, []);
 
   const strIngredient = details
     && Object.keys(details).filter((item) => item.includes('strIngredient'));
@@ -55,7 +59,7 @@ function RecipeDetails({ match }) {
     const local = [
       ...(getlocal || []),
       {
-        id: details.idMeal || details.idDrink,
+        id: history.location.pathname,
         type: history.location.pathname.includes('/foods') ? 'food' : 'drink',
         nationality: details.strArea || '',
         category: details.strCategory,
@@ -89,7 +93,10 @@ function RecipeDetails({ match }) {
   };
 
   return (
-    <div className="container ">
+    <div
+      className="container "
+      ref={ divContainer }
+    >
       {details && (
         <section>
           <img
@@ -173,7 +180,7 @@ function RecipeDetails({ match }) {
           <p className="h4-instructions mt-5 mb-3">Recomendations</p>
 
           <div className="recomendacoes mt-2 ">
-            <div className="carousel hover:text-white " ref={ carousel }>
+            <div className="carousel hover:text-white ">
               {recom
                 && recom.map((item, index) => (
                   <div
@@ -212,7 +219,7 @@ function RecipeDetails({ match }) {
         px-8 py-4 leading-none text-white bg-orange-500
       hover:bg-orange-700 transition duration-300 font-semibold
         rounded shadow` }
-        onClick={ () => history.goBack() }
+        onClick={ () => history.push('/foods') }
       >
         Go back
       </button>
@@ -245,5 +252,4 @@ RecipeDetails.propTypes = {
 };
 
 export default RecipeDetails;
-
 // para fazer o carousel usei esse video https://www.youtube.com/watch?v=cX0N3TNxumw

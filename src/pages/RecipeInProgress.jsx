@@ -24,8 +24,6 @@ function RecipeInProgress({ match }) {
 
   const history = useHistory();
 
-  console.log(btnFinish);
-
   useEffect(() => {
     const getApi = async () => {
       const response = await recipeDetailsApi(
@@ -54,7 +52,7 @@ function RecipeInProgress({ match }) {
     if (getLocalCheck && strIngrs) {
       getLocalCheck.forEach((obj) => {
         if (obj.id === history.location.pathname) {
-          setBtnFinish(arrayOf + 1 === obj.arrayOfCheck.length);
+          setBtnFinish(arrayOf === obj.arrayOfCheck.length);
         }
       });
     }
