@@ -170,9 +170,9 @@ function RecipeDetails({ match }) {
               </ul>
             </div>
 
-            <div>
-              <p data-testid="instructions" className="instructions rounded ">
-                <h4 className="h4-instructions mb-3">Instructions</h4>
+            <div className="instructions rounded ">
+              <h4 className="h4-instructions mb-3">Instructions</h4>
+              <p data-testid="instructions">
                 {details.strInstructions}
               </p>
             </div>
