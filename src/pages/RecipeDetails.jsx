@@ -89,22 +89,28 @@ function RecipeDetails({ match }) {
   };
 
   return (
-    <div className="container">
+    <div className="container ">
       {details && (
         <section>
+          <img
+            src={ details.strMealThumb || details.strDrinkThumb }
+            alt="foto"
+            width="150px"
+            data-testid="recipe-photo"
+            className="recipe-photo mb-5 shadow-md shadow-slate-500"
+          />
           <div className="RecipesAndIcons">
             <div>
-              <h2 data-testid="recipe-title" className="food-title -mt-7">
+              <h2 data-testid="recipe-title" className="food-title mr-2">
                 {details.strMeal || details.strDrink}
               </h2>
-              <p data-testid="recipe-category" className="recipe-category">
+              <p data-testid="recipe-category" className="recipe-category ">
                 {history.location.pathname.includes('/foods')
                   ? details.strCategory
                   : details.strAlcoholic}
               </p>
             </div>
-
-            <div className="Icons">
+            <div className="flex flex-col">
               <button
                 type="button"
                 onClick={ details && saveFavoriteLocalStorage }
@@ -113,10 +119,9 @@ function RecipeDetails({ match }) {
                   src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
                   alt="fav"
                   data-testid="favorite-btn"
-                  className="mb-7 hover:scale-125 transition duration-300"
+                  className="mb-10 hover:scale-150 transition duration-300"
                 />
               </button>
-
               <button
                 type="button"
                 data-testid="share-btn"
@@ -128,47 +133,42 @@ function RecipeDetails({ match }) {
                   setCopied(true);
                   setTimeout(() => setCopied(false), seconds);
                 } }
-                className="hover:scale-125 transition duration-300"
+                className="hover:scale-150 transition duration-300"
               >
                 <img src={ shareIcon } alt="compartilhar" />
               </button>
-              {copied && <p className="mt-5 text-xs ">Link copied!</p>}
+              {copied && <p className="mt-5 text-xs -ml-6">Link copied!</p>}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center mt-5">
+            <div>
+              <ul className="ingredients ingrDetails mb-4">
+                <h4 className="h4-ingredients mb-3">Ingredients</h4>
+                {[...strIngredient].map(
+                  (ing, index, arr) => details[ing] && (
+                    <li
+                      key={ details[ing] }
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                      className={ `
+                    ${index === arr.length - 1 ? 'mb-3' : 'mb-1'} 
+                    hover:scale-150 transition duration-200 hover:pt-2 hover:pb-2` }
+                    >
+                      {details[ing]}
+                      {': '}
+                      {details[strMeasure[index]]}
+                    </li>
+                  ),
+                )}
+              </ul>
             </div>
 
-            <img
-              src={ details.strMealThumb || details.strDrinkThumb }
-              alt="foto"
-              width="150px"
-              data-testid="recipe-photo"
-            />
-          </div>
-
-          <div>
-            <h4 className="h4-ingredients mb-3">Ingredients</h4>
-            <ul className="ingredients ingrDetails ">
-              {[...strIngredient].map(
-                (ing, index, arr) => details[ing] && (
-                  <li
-                    key={ details[ing] }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                    className={ `
-                    ${index === arr.length - 1 ? 'mb-3' : 'mb-0'} 
-                    hover:scale-150 transition duration-200 ` }
-                  >
-                    {details[ing]}
-                    {': '}
-                    {details[strMeasure[index]]}
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="h4-instructions mt-5 mb-2">Instructions</h4>
-            <p data-testid="instructions" className="instructions rounded">
-              {details.strInstructions}
-            </p>
+            <div>
+              <p data-testid="instructions" className="instructions rounded ">
+                <h4 className="h4-instructions mb-3">Instructions</h4>
+                {details.strInstructions}
+              </p>
+            </div>
           </div>
           <p className="h4-instructions mt-5 mb-3">Recomendations</p>
 
@@ -205,26 +205,25 @@ function RecipeDetails({ match }) {
           </div>
         </section>
       )}
+      <button
+        type="button"
+        className={ `
+        flex justify-center container w-30 mt-10
+        px-8 py-4 leading-none text-white bg-orange-500
+      hover:bg-orange-700 transition duration-300 font-semibold
+        rounded shadow` }
+        onClick={ () => history.goBack() }
+      >
+        Go back
+      </button>
       <div className="startButton">
         {!verifyRecipesDone() && (
           <button
             type="button"
             data-testid="start-recipe-btn"
-            className={ `enabledBtn 
-          flex
-          justify-center
-          py-4
-          leading-none
-           text-white
-            bg-orange-500
-             hover:bg-orange-700
-             animate-bounce
-             transition
-             duration-300
-             font-semibold
-             rounded
-             StartRecipe
-             shadow` }
+            className={ `enabledBtn flex justify-center py-4 leading-none
+             text-white  bg-orange-500 hover:bg-orange-700 animate-bounce 
+             transition duration-300 font-semibold rounded StartRecipe mb-14 shadow` }
             onClick={ () => {
               history.push(`${history.location.pathname}/in-progress`);
             } }

@@ -43,13 +43,14 @@ function FavoriteRecipes() {
   return (
     <div className="total">
       <Header />
-      <div className="favorit-Btns">
+      <div className="favorit-Btns mt-20">
         <div>
           <button
             data-testid="filter-by-all-btn"
             type="button"
             onClick={ () => setFilter('') }
-            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+            className="bg-orange-500 hover:bg-orange-700
+            transition duration-300 favorit-All h-10"
           >
             All
           </button>
@@ -59,7 +60,8 @@ function FavoriteRecipes() {
             data-testid="filter-by-food-btn"
             type="button"
             onClick={ () => setFilter('food') }
-            className="bg-orange-500 hover:bg-orange-700 favorit-All"
+            className="bg-orange-500 hover:bg-orange-700
+            transition duration-300 favorit-All h-10"
           >
             Food
           </button>
@@ -69,7 +71,8 @@ function FavoriteRecipes() {
             data-testid="filter-by-drink-btn"
             type="button"
             onClick={ () => setFilter('drink') }
-            className="bg-orange-500 hover:bg-orange-700  favorit-All"
+            className="bg-orange-500 hover:bg-orange-700
+            transition duration-300 favorit-All h-10"
           >
             Drinks
           </button>

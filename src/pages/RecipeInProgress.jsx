@@ -140,7 +140,7 @@ function RecipeInProgress({ match }) {
               <button
                 type="button"
                 onClick={ details && saveFavoriteLocalStorage }
-                className="mt-10 hover:scale-125 transition "
+                className="mt-10 hover:scale-150 transition "
               >
                 <img
                   src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -159,7 +159,7 @@ function RecipeInProgress({ match }) {
                   setCopied(true);
                   setTimeout(() => setCopied(false), seconds);
                 } }
-                className="mt-10 hover:scale-125 transition duration-300"
+                className="mt-10 hover:scale-150 transition duration-300"
               >
                 <img src={ shareIcon } alt="compartilhar" />
               </button>
@@ -167,15 +167,15 @@ function RecipeInProgress({ match }) {
             </div>
           </div>
           <div>
-            <h4 className="h4-ingredients">Ingredients</h4>
             <div
-              className="ingredients mt-3 hover:scale-125 transition
+              className="ingredients mt-5 hover:scale-125 transition
               duration-400
               hover:mt-5
               shadow-sm
               shadow-slate-400
               "
             >
+              <h4 className="h4-ingredients">Ingredients</h4>
               {details
                 && strIngrs.map((ing, index) => (
                   <Ingredients2
@@ -183,15 +183,14 @@ function RecipeInProgress({ match }) {
                     ing={ ing }
                     index={ index }
                     details={ details }
-                    className=""
                   />
                 ))}
             </div>
           </div>
           <br />
           <div>
-            <h4 className="h4-instructions mb-3">Instructions</h4>
             <div className="instructions">
+              <h4 className="h4-instructions mb-3">Instructions</h4>
               <p data-testid="instructions">{details.strInstructions}</p>
             </div>
           </div>
@@ -199,28 +198,19 @@ function RecipeInProgress({ match }) {
       )}
       <button
         type="button"
-        className={ ` enabledBtn ${btnFinish && 'mb-2'}
-        flex justify-center container w-30 mt-10
-        px-8 py-4 leading-none text-white bg-orange-500
-      hover:bg-orange-700 transition duration-300 font-semibold
-        rounded shadow` }
-        onClick={ () => history.goBack() }
-      >
-        Go back
-      </button>
-      <button
-        type="button"
         data-testid="finish-recipe-btn"
         className={ `enabledBtn ${btnFinish && 'animate-bounce'}
+        ${!btnFinish && 'cursor-not-allowed'}
         ${!btnFinish && 'bg-slate-300'} flex
         justify-center
         container
         w-30
         px-8 py-4
+        mt-10
         leading-none
          text-white
           bg-orange-500
-           hover:bg-orange-700
+          ${btnFinish && 'hover:bg-orange-700'}
            transition
            duration-300
            font-semibold
@@ -231,6 +221,17 @@ function RecipeInProgress({ match }) {
         onClick={ doneRecipes }
       >
         Finish
+      </button>
+      <button
+        type="button"
+        className={ ` enabledBtn ${btnFinish && 'mb-2'} 
+        flex justify-center container w-30
+        px-8 py-4 leading-none text-white bg-orange-500
+      hover:bg-orange-700 transition duration-300 font-semibold
+        rounded shadow` }
+        onClick={ () => history.goBack() }
+      >
+        Go back
       </button>
     </div>
   );
