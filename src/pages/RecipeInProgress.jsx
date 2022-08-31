@@ -24,6 +24,8 @@ function RecipeInProgress({ match }) {
 
   const history = useHistory();
 
+  console.log(btnFinish);
+
   useEffect(() => {
     const getApi = async () => {
       const response = await recipeDetailsApi(
@@ -52,7 +54,7 @@ function RecipeInProgress({ match }) {
     if (getLocalCheck && strIngrs) {
       getLocalCheck.forEach((obj) => {
         if (obj.id === history.location.pathname) {
-          setBtnFinish(obj.ings.length === obj.arrayOfCheck.length);
+          setBtnFinish(arrayOf + 1 === obj.arrayOfCheck.length);
         }
       });
     }
@@ -199,7 +201,7 @@ function RecipeInProgress({ match }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        className={ `enabledBtn ${btnFinish && 'animate-bounce'}
+        className={ `enabledBtn 
         ${!btnFinish && 'cursor-not-allowed'}
         ${!btnFinish && 'bg-slate-300'} flex
         justify-center
