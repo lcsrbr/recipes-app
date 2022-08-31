@@ -8,7 +8,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Ingredients2 from '../components/Ingredients2';
-import '../Css/RecipeInProgress.css';
+import '../styles/RecipeInProgress.css';
 
 const copy = require('clipboard-copy');
 

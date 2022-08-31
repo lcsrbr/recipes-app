@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
 import recipeDetailsApi from '../services/recipeDetailsApi';
 import recommendationsApi from '../services/recommendationsApi';
-import '../Css/recipeDetails.css';
+import '../styles/recipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import '../Css/FoodsDrinks.css';
+import '../styles/FoodsDrinks.css';
 
 const copy = require('clipboard-copy');
 

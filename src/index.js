@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './App';
+import Routes from './routes/Routes';
 import * as serviceWorker from './serviceWorker';
 import store from './redux/store';
 import './App.css';
@@ -10,7 +10,7 @@ import './App.css';
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={ store }>
-      <App />
+      <Routes />
     </Provider>
   </BrowserRouter>,
   document.getElementById('root'),

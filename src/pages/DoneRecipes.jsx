@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import '../Css/doneRecipes.css';
+import '../styles/doneRecipes.css';
 
 const time = 1000;
 

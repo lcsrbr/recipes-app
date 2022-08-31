@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import '../Css/FoodsFavorite.css';
+import '../styles/FoodsFavorite.css';
 
 const time = 2000;
 

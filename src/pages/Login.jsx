@@ -3,7 +3,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { useDispatch } from 'react-redux';
 import { saveUser } from '../redux/reducer/user';
-import '../Css/Login.css';
+import '../styles/Login.css';
 import recipesLoginImage from '../images/recipes-login.svg';
 
 const minLength = 6;
