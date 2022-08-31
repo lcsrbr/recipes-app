@@ -37,7 +37,7 @@ function FavoriteRecipes() {
   };
 
   const redirectDetails = (id, type) => {
-    const url = type === 'food' ? `/foods/${id}` : `/drinks/${id}`;
+    const url = type === 'food' ? `${id}` : `${id}`;
     history.push(url);
   };
 
