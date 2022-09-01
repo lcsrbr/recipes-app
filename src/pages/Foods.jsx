@@ -91,8 +91,8 @@ function Foods() {
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={ () => cocktailApi('Name', '')
-              .then((item) => dispatch(saveCocktailApi(item))) }
+            onClick={ () => foodApi('Name', '')
+              .then((item) => dispatch(saveFoodApi(item))) }
             className="bg-orange-500 hover:bg-orange-700
             hover:animate-pulse transition duration-300"
           >
