@@ -232,7 +232,7 @@ function RecipeInProgress({ match }) {
         shadow` }
         onClick={ () => history.goBack() }
       >
-        Go back
+        Go Home
       </button>
     </div>
   );
