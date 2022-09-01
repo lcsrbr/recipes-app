@@ -9,39 +9,42 @@ import Footer from '../components/Footer';
 
 const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 const maxLength = 12;
+const returnCategories = ['Ordinary Drink',
+  'Cocktail',
+  'Shake',
+  'Other/Unknown',
+  'Cocoa',
+  'Shot',
+  'Coffee / Tea',
+  'Homemade Liqueur',
+  'Punch / Party Drink',
+  'Beer',
+  'Soft Drink'];
 
 function Drinks() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [returnCategories, setReturnCategories] = useState([]);
-  const [toggle, setToggle] = useState(true);
+  const [render, setRender] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   const storageCocktails = useSelector(
     ({ searchCocktailApi }) => searchCocktailApi.cocktailApi,
   );
 
+  const renderDrinks = async () => {
+    const cocktail = await cocktailApi('Name', '');
+    dispatch(saveCocktailApi(cocktail));
+    setRender(cocktail);
+    setToggle(true);
+  };
+
   useEffect(() => {
-    const abortController = new AbortController();
-
-    const getCategoriesApi = async () => {
-      try {
-        const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-        const response = await fetch(url, { signal: abortController.signal });
-        const data = await response.json();
-        const values = data.drinks.map((test) => test.strCategory);
-        setReturnCategories(values);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const renderDrinks = () => {
-      cocktailApi('Name', '').then((item) => dispatch(saveCocktailApi(item)));
-    };
     renderDrinks();
-    getCategoriesApi();
-
-    return () => abortController.abort();
   }, []);
+
+  useEffect(() => {
+    setRender(storageCocktails);
+  }, [storageCocktails]);
 
   const categoriesFunc = () => {
     const maxLength2 = 5;
@@ -54,63 +57,64 @@ function Drinks() {
 
   if (storageCocktails === null) global.alert(alert);
 
-  if (toggle && storageCocktails && storageCocktails.length === 1) {
+  if (render && render.length === 1) {
     history.push(`/drinks/${storageCocktails[0].idDrink}`);
   }
 
   const handleClick = (categoryName) => {
-    if (toggle === true) {
-      cocktailApi('Categories', categoryName)
-        .then((item) => dispatch(saveCocktailApi(item)));
-    }
-    setToggle(!toggle);
-    if (toggle === false) {
-      cocktailApi('Name', '').then((item) => dispatch(saveCocktailApi(item)));
-    }
+    const filter = storageCocktails
+      .filter((obj) => (categoryName ? obj.strCategory === categoryName : obj));
+    setRender(filter);
   };
 
   return (
     <div>
-      <Route exact path="/drinks" component={ Header } />
-      <div className="componentItem">
-        <div className="categories">
-          {returnCategories.length > 0
-            && categoriesFunc().map((categoryName, i) => (
+      { toggle ? (
+        <>
+          <Route exact path="/drinks" component={ Header } />
+          <div className="componentItem">
+            <div className="categories">
+              {returnCategories.length > 0
+                  && categoriesFunc().map((categoryName, i) => (
+                    <button
+                      key={ i }
+                      type="button"
+                      data-testid={ `${categoryName}-category-filter` }
+                      onClick={ () => handleClick(categoryName) }
+                      className="bg-orange-500 hover:bg-orange-700 ..."
+                    >
+                      {categoryName}
+                    </button>
+                  ))}
               <button
-                key={ i }
                 type="button"
-                data-testid={ `${categoryName}-category-filter` }
-                onClick={ () => handleClick(categoryName) }
+                data-testid="All-category-filter"
+                onClick={ () => handleClick('') }
                 className="bg-orange-500 hover:bg-orange-700 ..."
               >
-                {categoryName}
+                All
               </button>
-            ))}
-          <button
-            type="button"
-            data-testid="All-category-filter"
-            onClick={ () => cocktailApi('Name', '')
-              .then((item) => dispatch(saveCocktailApi(item))) }
-            className="bg-orange-500 hover:bg-orange-700 ..."
-          >
-            All
-          </button>
-        </div>
-        <div className="listItems">
-          {storageCocktails
-            && storageCocktails
-              .slice(0, maxLength)
-              .map((drink, index) => (
-                <Recipes
-                  key={ index }
-                  recipe={ drink }
-                  index={ index }
-                  recipes={ storageCocktails.slice(0, maxLength) }
-                />
-              ))}
-        </div>
-      </div>
-      <Footer />
+            </div>
+            <div className="listItems">
+              {render.length !== 0
+                ? render
+                  .slice(0, maxLength)
+                  .map((drink, index) => (
+                    <Recipes
+                      key={ index }
+                      recipe={ drink }
+                      index={ index }
+                      recipes={ storageCocktails.slice(0, maxLength) }
+                    />
+                  )) : <h2>could not find</h2>}
+            </div>
+          </div>
+          <Footer />
+
+        </>
+      )
+        : <h3>Loading...</h3>}
+
     </div>
   );
 }

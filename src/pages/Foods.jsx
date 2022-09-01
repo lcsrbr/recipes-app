@@ -44,6 +44,10 @@ function Foods() {
     renderFoods();
   }, []);
 
+  useEffect(() => {
+    setRender(storageFoods);
+  }, [storageFoods]);
+
   const categoriesFunc = () => {
     const maxLength2 = 5;
     const filteredArray = returnCategories
