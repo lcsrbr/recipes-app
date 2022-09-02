@@ -1,9 +1,9 @@
+/* eslint-disable max-lines */
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import recipeDetailsApi from '../services/recipeDetailsApi';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -25,27 +25,35 @@ function RecipeInProgress({ match }) {
 
   const history = useHistory();
 
-  useEffect(() => {
-    const getApi = async () => {
-      const response = await recipeDetailsApi(
-        match.params.id,
-        history.location.pathname,
-      );
-      setDetails(response);
-      const strIngredient = response
-        && Object.keys(response).filter((item) => item.includes('strIngredient'));
-      const verifyFavorite = () => {
-        const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-        if (!getlocal) return false;
-        return getlocal.some(
-          ({ id }) => id === history.location.pathname,
-        );
-      };
+  const verifyFavorite = () => {
+    const getlocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!getlocal) return false;
+    return getlocal.some(
+      ({ id }) => history.location.pathname.includes(id),
+    );
+  };
+  const getApi = () => {
+    const foodLocal = JSON.parse(localStorage.getItem('foodApi'));
+    const drinckLocal = JSON.parse(localStorage.getItem('cocktailApi'));
+    if (history.location.pathname.includes('foods')) {
+      const food = foodLocal.find(({ idMeal }) => idMeal === match.params.id);
+      setDetails(food);
+      const strIngredient = foodLocal
+        && Object.keys(food).filter((item) => item.includes('strIngredient'));
       setStrIngrs(strIngredient);
-      setFavotite(verifyFavorite());
-    };
+      return setFavotite(verifyFavorite());
+    }
+    const drinck = drinckLocal.find(({ idDrink }) => idDrink === match.params.id);
+    setDetails(drinck);
+    const strIngredientD = drinckLocal
+      && Object.keys(drinck).filter((item) => item.includes('strIngredient'));
+    setStrIngrs(strIngredientD);
+    setFavotite(verifyFavorite());
+  };
+
+  useEffect(() => {
     getApi();
-  }, [match.params.id, history.location.pathname]);
+  }, []);
 
   useEffect(() => {
     const getLocalCheck = JSON.parse(localStorage.getItem('in-progress'));
@@ -202,7 +210,9 @@ function RecipeInProgress({ match }) {
           data-testid="finish-recipe-btn"
           className={ `enabledBtn 
         ${!btnFinish && 'cursor-not-allowed'}
-        ${!btnFinish && 'bg-slate-300'} flex
+        ${!btnFinish && 'bg-slate-300'}
+        ${btnFinish && 'animate-pulse'}
+        flex
         justify-center
         container
         w-30
@@ -224,8 +234,7 @@ function RecipeInProgress({ match }) {
         </button>)}
       <button
         type="button"
-        className={ ` enabledBtn ${btnFinish && 'mb-2'} 
-        ${btnFinish && 'animate-pulse'}
+        className={ ` enabledBtn
         flex justify-center container w-30
         px-8 py-4 leading-none text-white bg-orange-500
       hover:bg-orange-700 transition duration-300 font-semibold

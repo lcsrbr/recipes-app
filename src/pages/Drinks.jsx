@@ -36,6 +36,7 @@ function Drinks() {
     dispatch(saveCocktailApi(cocktail));
     setRender(cocktail);
     setToggle(true);
+    localStorage.setItem('cocktailApi', JSON.stringify(cocktail));
   };
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import foodApi from '../services/foodApi';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import Footer from '../components/Footer';
+import cocktailApi from '../services/cocktailApi';
 
 const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 const maxLength = 12;
@@ -38,6 +39,9 @@ function Foods() {
     dispatch(saveFoodApi(food));
     setRender(food);
     setReturnFoods(true);
+    localStorage.setItem('foodApi', JSON.stringify(food));
+    const cocktail = await cocktailApi('Name', '');
+    localStorage.setItem('cocktailApi', JSON.stringify(cocktail));
   };
 
   useEffect(() => {
