@@ -96,7 +96,7 @@ function Foods() {
                 data-testid="All-category-filter"
                 onClick={ () => handleClick('') }
                 className="bg-orange-500 hover:bg-orange-700
-            hover:animate-pulse transition duration-300"
+                hover:animate-pulse transition duration-300"
               >
                 All
               </button>

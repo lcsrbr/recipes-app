@@ -221,7 +221,7 @@ function RecipeDetails({ match }) {
         rounded shadow` }
         onClick={ () => history.push('/foods') }
       >
-        Go back
+        Go Home
       </button>
       <div className="startButton">
         {!verifyRecipesDone() && (
