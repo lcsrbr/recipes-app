@@ -19,5 +19,11 @@ const cocktailApi = (radio, search) => {
     return getApi(`filter.php?c=${search}`);
   }
 };
+// const cocktailApi = (radio, search) => ({
+//   Ingredient: getApi(`filter.php?i=${search}`),
+//   Name: getApi(`search.php?s=${search}`),
+//   'First-letter': getApi(`search.php?f=${search}`),
+//   Categories: getApi(`filter.php?c=${search}`),
+// })[radio];
 
 export default cocktailApi;

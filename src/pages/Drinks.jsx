@@ -44,7 +44,9 @@ function Drinks() {
   }, []);
 
   useEffect(() => {
-    setRender(storageCocktails);
+    if (storageCocktails) {
+      setRender(storageCocktails);
+    }
   }, [storageCocktails]);
 
   const categoriesFunc = () => {
@@ -105,7 +107,7 @@ function Drinks() {
                       key={ index }
                       recipe={ drink }
                       index={ index }
-                      recipes={ storageCocktails.slice(0, maxLength) }
+                      recipes={ render.slice(0, maxLength) }
                     />
                   )) : <h2>could not find</h2>}
             </div>

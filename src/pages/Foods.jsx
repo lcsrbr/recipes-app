@@ -49,7 +49,9 @@ function Foods() {
   }, []);
 
   useEffect(() => {
-    setRender(storageFoods);
+    if (storageFoods) {
+      setRender(storageFoods);
+    }
   }, [storageFoods]);
 
   const categoriesFunc = () => {
@@ -71,6 +73,7 @@ function Foods() {
       .filter((obj) => (categoryName ? obj.strCategory === categoryName : obj));
     setRender(filter);
   };
+
   return (
     <div>
       {returnFoods ? (
@@ -102,7 +105,7 @@ function Foods() {
               </button>
             </div>
             <div className="listItems">
-              {render.length !== 0
+              {render.length
                 ? render
                   .slice(0, maxLength)
                   .map((food, index) => (
