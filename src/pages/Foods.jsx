@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import Footer from '../components/Footer';
 import cocktailApi from '../services/cocktailApi';
+import Loading from '../components/Loading';
 
 const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 const maxLength = 12;
@@ -120,7 +121,7 @@ function Foods() {
           </div>
           <Footer />
         </>
-      ) : <h3>Loading...</h3>}
+      ) : <Loading />}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { saveCocktailApi } from '../redux/reducer/searchCocktailApi';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 
 const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 const maxLength = 12;
@@ -116,7 +117,7 @@ function Drinks() {
 
         </>
       )
-        : <h3>Loading...</h3>}
+        : <Loading />}
 
     </div>
   );
