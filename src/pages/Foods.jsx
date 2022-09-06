@@ -6,9 +6,25 @@ import foodApi from '../services/foodApi';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import Footer from '../components/Footer';
+import cocktailApi from '../services/cocktailApi';
+import Loading from '../components/Loading';
 
 const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 const maxLength = 12;
+const returnCategories = ['Beef',
+  'Breakfast',
+  'Chicken',
+  'Dessert',
+  'Goat',
+  'Lamb',
+  'Miscellaneous',
+  'Pasta',
+  'Pork',
+  'Seafood',
+  'Side',
+  'Starter',
+  'Vegan',
+  'Vegetarian'];
 
 function Foods() {
   const dispatch = useDispatch();
@@ -16,30 +32,28 @@ function Foods() {
   const storageFoods = useSelector(
     ({ searchFoodApi }) => searchFoodApi.foodApi,
   );
-  const [returnCategories, setReturnCategories] = useState([]);
-  const [toggle, setToggle] = useState(true);
+  const [returnFoods, setReturnFoods] = useState(false);
+  const [render, setRender] = useState([]);
+
+  const renderFoods = async () => {
+    const food = await foodApi('Name', '');
+    dispatch(saveFoodApi(food));
+    setRender(food);
+    setReturnFoods(true);
+    localStorage.setItem('foodApi', JSON.stringify(food));
+    const cocktail = await cocktailApi('Name', '');
+    localStorage.setItem('cocktailApi', JSON.stringify(cocktail));
+  };
 
   useEffect(() => {
-    const abortController = new AbortController();
-
-    const getCategoriesApi = async () => {
-      try {
-        const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-        const response = await fetch(url, { signal: abortController.signal });
-        const data = await response.json();
-        const values = data.meals.map((test) => test.strCategory);
-        setReturnCategories(values);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const renderFoods = () => foodApi('Name', '')
-      .then((item) => dispatch(saveFoodApi(item)));
     renderFoods();
-    getCategoriesApi();
-
-    return () => abortController.abort();
   }, []);
+
+  useEffect(() => {
+    if (storageFoods) {
+      setRender(storageFoods);
+    }
+  }, [storageFoods]);
 
   const categoriesFunc = () => {
     const maxLength2 = 5;
@@ -52,30 +66,23 @@ function Foods() {
 
   if (storageFoods === null) global.alert(alert);
 
-  if (toggle && storageFoods && storageFoods.length === 1) {
-    history.push(`/foods/${storageFoods[0].idMeal}`);
+  if (render && render.length === 1) {
+    history.push(`/foods/${render[0].idMeal}`);
   }
-
   const handleClick = (categoryName) => {
-    if (toggle === true) {
-      foodApi('Categories', categoryName).then((item) => dispatch(saveFoodApi(item)));
-      return;
-    }
-    setToggle(!toggle);
-    if (toggle === false) {
-      foodApi('Name', '').then((item) => dispatch(saveFoodApi(item)));
-      return;
-    }
-    if (storageFoods.length === 1) {
-      setToggle(false);
-    }
+    const filter = storageFoods
+      .filter((obj) => (categoryName ? obj.strCategory === categoryName : obj));
+    setRender(filter);
   };
+
   return (
     <div>
-      <Route exact path="/foods" component={ Header } />
-      <div className="componentItem">
-        <div className="categories">
-          {returnCategories.length > 0
+      {returnFoods ? (
+        <>
+          <Route exact path="/foods" component={ Header } />
+          <div className="componentItem">
+            <div className="categories">
+              {returnCategories.length > 0
             && categoriesFunc().map((categoryName, i) => (
               <button
                 key={ i }
@@ -88,32 +95,33 @@ function Foods() {
                 {categoryName}
               </button>
             ))}
-          <button
-            type="button"
-            data-testid="All-category-filter"
-            onClick={ () => foodApi('Name', '')
-              .then((item) => dispatch(saveFoodApi(item))) }
-            className="bg-orange-500 hover:bg-orange-700
-            hover:animate-pulse transition duration-300"
-          >
-            All
-          </button>
-        </div>
-        <div className="listItems">
-          {storageFoods
-            && storageFoods
-              .slice(0, maxLength)
-              .map((food, index) => (
-                <Recipes
-                  key={ index }
-                  recipe={ food }
-                  index={ index }
-                  recipes={ storageFoods.slice(0, maxLength) }
-                />
-              ))}
-        </div>
-      </div>
-      <Footer />
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={ () => handleClick('') }
+                className="bg-orange-500 hover:bg-orange-700
+                hover:animate-pulse transition duration-300"
+              >
+                All
+              </button>
+            </div>
+            <div className="listItems">
+              {render.length
+                ? render
+                  .slice(0, maxLength)
+                  .map((food, index) => (
+                    <Recipes
+                      key={ index }
+                      recipe={ food }
+                      index={ index }
+                      recipes={ render.slice(0, maxLength) }
+                    />
+                  )) : <h2>could not find</h2>}
+            </div>
+          </div>
+          <Footer />
+        </>
+      ) : <Loading />}
     </div>
   );
 }

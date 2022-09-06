@@ -26,6 +26,10 @@ function Header() {
     '/favorite-recipes': true,
   }[history.location.pathname]);
 
+  const clickSearch = () => {
+    setToogle(!toogle);
+  };
+
   return (
     <header className="shadow-lg shadow-grey-500/20">
       <div className="iconsAndTitle">
@@ -49,7 +53,7 @@ function Header() {
           </button>
         )}
       </div>
-      {toogle && <SearchBar />}
+      {toogle && <SearchBar clickSearch={ clickSearch } />}
     </header>
   );
 }

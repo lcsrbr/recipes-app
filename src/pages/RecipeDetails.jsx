@@ -3,8 +3,6 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
-import recipeDetailsApi from '../services/recipeDetailsApi';
-import recommendationsApi from '../services/recommendationsApi';
 import '../styles/recipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -31,26 +29,21 @@ function RecipeDetails({ match }) {
     );
   };
 
-  const getApi = async (abortController) => {
-    const response = await recipeDetailsApi(
-      match.params.id,
-      history.location.pathname,
-      abortController,
-    );
-    setDetails(response);
-    const recommendations = await recommendationsApi(
-      history.location.pathname,
-    );
-    setRecom(recommendations.slice(0, seis));
+  const getApi = () => {
+    const foodLocal = JSON.parse(localStorage.getItem('foodApi'));
+    const drinckLocal = JSON.parse(localStorage.getItem('cocktailApi'));
+    if (history.location.pathname.includes('foods')) {
+      setDetails(foodLocal.find(({ idMeal }) => idMeal === match.params.id));
+      setRecom(drinckLocal.slice(0, seis));
+      return setFavotite(verifyFavorite());
+    }
+    setDetails(drinckLocal.find(({ idDrink }) => idDrink === match.params.id));
+    setRecom(foodLocal.slice(0, seis));
     setFavotite(verifyFavorite());
   };
 
   useEffect(() => {
-    const abortController = new AbortController();
-
-    getApi({ signal: abortController.signal });
-
-    return () => abortController.abort();
+    getApi();
   }, []);
 
   const strIngredient = details

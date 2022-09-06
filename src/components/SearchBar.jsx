@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -6,7 +7,7 @@ import foodApi from '../services/foodApi';
 import cocktailApi from '../services/cocktailApi';
 import { saveCocktailApi } from '../redux/reducer/searchCocktailApi';
 
-function SearchBar() {
+function SearchBar({ clickSearch }) {
   const [searchFilter, setSearchFilter] = useState('Ingredient');
   const [searchInput, setSearchInput] = useState('');
 
@@ -17,6 +18,7 @@ function SearchBar() {
     if (searchFilter === 'First-letter' && searchInput.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
+    clickSearch();
     return history.location.pathname === '/foods'
       ? foodApi(searchFilter, searchInput)
         .then((item) => dispatch(saveFoodApi(item)))
@@ -74,5 +76,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  clickSearch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
