@@ -1,5 +1,3 @@
-/* eslint-disable max-lines */
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
