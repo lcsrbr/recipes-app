@@ -4,16 +4,17 @@ header {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 18px;
+  margin-top: 17px;
   padding-bottom: 5px;
   position: fixed;
 
   /* top: auto; */
   top: -3%;
-  width: 100%;
+  width: 360px;
 }
 
 .iconsAndTitle {
+  background-color: white;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -23,6 +24,7 @@ header {
 }
 
 .searchBar {
+  background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

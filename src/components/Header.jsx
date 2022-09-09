@@ -33,14 +33,15 @@ function Header() {
   return (
     <header className="shadow-lg shadow-grey-500/20">
       <div className="iconsAndTitle">
-        <Link to="/profile">
+        <Link to="/profile" className='bg-white'>
           <img
             src={ profileIcon }
             alt="profile icon"
             data-testid="profile-top-btn"
+            className='bg-white'
           />
         </Link>
-        <h1 data-testid="page-title" className="text-3xl font-light">
+        <h1 data-testid="page-title" className="text-3xl font-light bg-white">
           {dynamicTitle()}
         </h1>
         {!dynamicSearchIcon() && (
@@ -49,6 +50,7 @@ function Header() {
               data-testid="search-top-btn"
               src={ searchIcon }
               alt="search icon"
+              className='bg-white'
             />
           </button>
         )}

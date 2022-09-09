@@ -13,18 +13,19 @@ function Recipes({ index, recipe }) {
       data-testid={ `${index}-recipe-card` }
       key={ idRecipe }
       className="recipesImg border-solid border-orange-500 shadow-slate-600
-      hover:border-black-500 shadow-lg "
+      hover:border-black-500 shadow-lg bg-white rounded"
     >
       <Link to={ `${pathname}/${idRecipe}` }>
         <img
           data-testid={ `${index}-card-img` }
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt={ recipe.strMeal || recipe.strDrink }
+          className="rounded"
         />
       </Link>
       <p
         data-testid={ `${index}-card-name` }
-        className="text-2xl font-light italic mb-4 text"
+        className="text-2xl font-light italic mb-4 text bg-white"
       >
         {recipe.strMeal || recipe.strDrink}
       </p>

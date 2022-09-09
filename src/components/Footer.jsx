@@ -11,10 +11,10 @@ function Footer() {
   return (
     <footer data-testid="footer" className="footer">
       <button type="button" onClick={ () => history.push('/drinks') }>
-        <img src={ drinkIcon } alt="drink" data-testid="drinks-bottom-btn" />
+        <img src={drinkIcon} alt="drink" data-testid="drinks-bottom-btn" className='bg-white' />
       </button>
       <button type="button" onClick={ () => history.push('/foods') }>
-        <img src={ mealIconfrom } alt="foods" data-testid="food-bottom-btn" />
+        <img src={mealIconfrom} alt="foods" data-testid="food-bottom-btn" className='bg-white' />
       </button>
     </footer>
   );

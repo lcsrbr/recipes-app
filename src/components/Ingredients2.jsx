@@ -81,7 +81,7 @@ function Ingredients2({ ing, index, details }) {
         style={ {
           textDecoration: check && 'line-through',
         } }
-        className="mt-3 mb-3"
+        className="mt-3 mb-3 checkbox"
       >
         {checkLocal && (
           <input

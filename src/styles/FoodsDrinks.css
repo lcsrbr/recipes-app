@@ -1,6 +1,7 @@
 .componentItem {
   display: flex;
   flex-direction: column;
+  background-color: white;
   gap: 1em;
   margin: 50px 0;
   width: 100%;
@@ -29,15 +30,18 @@
 }
 
 .listItems {
+  background-color: white;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
   justify-content: center;
   margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .categories {
+  background-color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

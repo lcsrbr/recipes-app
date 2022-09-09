@@ -123,21 +123,21 @@ function RecipeInProgress({ match }) {
     history.push('/done-recipes');
   };
   return (
-    <div>
+    <div className='bg-white'>
       {details && (
-        <section>
+        <section className='bg-white'>
           <img
             src={ details.strMealThumb || details.strDrinkThumb }
             alt="foto"
             className="recipe-photo rounded shadow-lg shadow-slate-800"
             data-testid="recipe-photo"
           />
-          <div className="RecipesAndIcons">
-            <div className="ml-10">
-              <h2 data-testid="recipe-title" className="food-title mt-8">
+          <div className="RecipesAndIcons bg-white">
+            <div className="ml-10 bg-white">
+              <h2 data-testid="recipe-title" className="food-title mt-8 bg-white">
                 {details.strMeal || details.strDrink}
               </h2>
-              <p data-testid="recipe-category" className="recipe-category">
+              <p data-testid="recipe-category" className="recipe-category bg-white">
                 {history.location.pathname.includes('/foods')
                   ? details.strCategory
                   : details.strAlcoholic}
@@ -153,6 +153,7 @@ function RecipeInProgress({ match }) {
                   src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
                   alt="fav"
                   data-testid="favorite-btn"
+                  className='bg-white'
                 />
               </button>
               <button
@@ -168,12 +169,12 @@ function RecipeInProgress({ match }) {
                 } }
                 className="mt-10 hover:scale-150 transition duration-300"
               >
-                <img src={ shareIcon } alt="compartilhar" />
+                <img src={shareIcon} alt="compartilhar" className='bg-white'/>
               </button>
               {copied && <p className="mt-3 text-xs">Link copied!</p>}
             </div>
           </div>
-          <div>
+          <div className='bg-white'>
             <div
               className="ingredients mt-5 transition
               duration-400
@@ -197,7 +198,7 @@ function RecipeInProgress({ match }) {
           <div>
             <div className="instructions">
               <h4 className="h4-instructions mb-3">Instructions</h4>
-              <p data-testid="instructions">{details.strInstructions}</p>
+              <p data-testid="instructions" className="p-instructions">{details.strInstructions}</p>
             </div>
           </div>
         </section>

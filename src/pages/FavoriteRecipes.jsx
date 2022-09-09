@@ -41,10 +41,10 @@ function FavoriteRecipes() {
   };
 
   return (
-    <div className="total">
+    <div className="total bg-white">
       <Header />
-      <div className="favorit-Btns mt-20">
-        <div>
+      <div className="favorit-Btns mt-20 bg-white">
+        <div className='bg-white'>
           <button
             data-testid="filter-by-all-btn"
             type="button"
@@ -55,7 +55,7 @@ function FavoriteRecipes() {
             All
           </button>
         </div>
-        <div>
+        <div className='bg-white'>
           <button
             data-testid="filter-by-food-btn"
             type="button"
@@ -66,7 +66,7 @@ function FavoriteRecipes() {
             Food
           </button>
         </div>
-        <div>
+        <div className='bg-white'>
           <button
             data-testid="filter-by-drink-btn"
             type="button"
@@ -78,7 +78,7 @@ function FavoriteRecipes() {
           </button>
         </div>
       </div>
-      <section>
+      <section className='bg-white'>
         {copied && <p data-testid="Link-copied">Link copied!</p>}
         {favorites
           && favorites
@@ -87,9 +87,9 @@ function FavoriteRecipes() {
               <div
                 key={ data.id }
                 data-testid={ `${index}-${data.name}-horizontal-tag` }
-                className="favoritImg"
+                className="favoritImg bg-white"
               >
-                <div>
+                <div className='bg-white'>
                   <button
                     type="button"
                     onClick={ () => redirectDetails(data.id, data.type) }
@@ -103,8 +103,8 @@ function FavoriteRecipes() {
                     />
                   </button>
                 </div>
-                <div>
-                  <p data-testid={ `${index}-horizontal-top-text` }>
+                <div className='bg-white'>
+                  <p data-testid={`${index}-horizontal-top-text`} className="bg-white">
                     {data.type === 'food'
                       ? `${data.nationality} - ${data.category}`
                       : data.alcoholicOrNot}
@@ -117,13 +117,14 @@ function FavoriteRecipes() {
                     {data.name}
                   </button>
                   <p data-testid={ `${index}-horizontal-done-date` }>{}</p>
-                  <div className="favorit-Bts">
+                  <div className="favorit-Bts bg-white">
                     <input
                       type="image" // compartilhar
                       src={ shareIcon }
                       alt={ data.name }
                       data-testid={ `${index}-horizontal-share-btn` }
                       onClick={ () => handleShare(data.id, data.type) }
+                      className="bg-white"
                     />
                     <input
                       type="image" // coração
@@ -131,6 +132,7 @@ function FavoriteRecipes() {
                       alt={ data.name }
                       data-testid={ `${index}-horizontal-favorite-btn` }
                       onClick={ () => removeFavorite(data.id) }
+                      className="bg-white"
                     />
                   </div>
                 </div>

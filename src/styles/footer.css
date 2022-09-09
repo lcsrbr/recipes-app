@@ -1,9 +1,10 @@
 .footer {
   bottom: 0;
   position: fixed;
-  width: 100%;
+  width: 360px;
   height: 60px;
   display: flex;
   justify-content: space-around;
   background-color: white;
+  border-radius: 5px;
 }

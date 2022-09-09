@@ -23,9 +23,14 @@ section {
 
 .h4-ingredients {
   font-family: sans-serif;
+  background-color: #e5e5e5;
   font-size: 30px;
   margin-top: 15px;
   text-align: center;
+}
+
+.checkbox {
+  background-color: #e5e5e5;
 }
 
 .recipe-category {
@@ -36,6 +41,13 @@ section {
 .meals {
   display: flex;
   justify-content: center;
+  margin: auto;
+  width: 390px;
+  background-color: white;
+}
+
+* {
+  background-color: #8f8a8a;
 }
 
 .recipe-photo {
@@ -47,9 +59,13 @@ section {
 }
 
 .h4-instructions {
+  background-color: #e5e5e5;
   font-family: sans-serif;
   font-size: 30px;
   text-align: center;
+}
+.p-instructions {
+  background-color: #e5e5e5;
 }
 
 .instructions {
@@ -77,4 +93,5 @@ section {
   justify-content: space-around;
   margin-left: 100px;
   width: 50%;
+  height: 100px;
 }

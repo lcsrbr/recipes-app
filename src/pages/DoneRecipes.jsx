@@ -34,10 +34,10 @@ function DoneRecipes() {
   };
 
   return (
-    <div className="total">
+    <div className="total bg-white">
       <Header />
-      <div className="favorit-Btns mt-20">
-        <div>
+      <div className="favorit-Btns mt-20 bg-white">
+        <div className='bg-white'>
           <button
             data-testid="filter-by-all-btn"
             type="button"
@@ -48,7 +48,7 @@ function DoneRecipes() {
             All
           </button>
         </div>
-        <div>
+        <div className='bg-white'>
           <button
             data-testid="filter-by-food-btn"
             type="button"
@@ -59,7 +59,7 @@ function DoneRecipes() {
             Food
           </button>
         </div>
-        <div>
+        <div className='bg-white'>
           <button
             data-testid="filter-by-drink-btn"
             type="button"
@@ -71,7 +71,7 @@ function DoneRecipes() {
           </button>
         </div>
       </div>
-      <section>
+      <section className='bg-white'>
         {done
           && done
             .filter((data) => (!filter ? data : data.type === filter))
@@ -81,10 +81,11 @@ function DoneRecipes() {
                 data-testid={ `${index}-${data.name}-horizontal-tag` }
                 className="donRecipes mb-4"
               >
-                <div>
+                <div className='bg-white'>
                   <button
                     type="button"
                     onClick={ () => redirectDetails(data.id, data.type) }
+                    className="bg-white"
                   >
                     <img
                       data-testid={ `${index}-horizontal-image` }
@@ -94,24 +95,24 @@ function DoneRecipes() {
                     />
                   </button>
                 </div>
-                <div>
-                  <div className=".donRecipesBth mt-3">
+                <div className='bg-white'>
+                  <div className=".donRecipesBth mt-3 bg-white">
                     <button
                       data-testid={ `${index}-horizontal-name` }
                       type="button"
                       onClick={ () => redirectDetails(data.id, data.type) }
                     >
-                      <strong className="text-xl">{data.name}</strong>
+                      <strong className="text-xl bg-white">{data.name}</strong>
                     </button>
-                    <p data-testid={ `${index}-horizontal-top-text` }>
+                    <p data-testid={`${index}-horizontal-top-text`} className="bg-white">
                       {data.type === 'food'
                         ? `${data.nationality} - ${data.category}`
                         : data.alcoholicOrNot}
                     </p>
                   </div>
-                  <div>
+                  <div className='bg-white'>
                     <p
-                      className="mt-3"
+                      className="mt-3 bg-white"
                       data-testid={ `${index}-horizontal-done-date` }
                     >
                       {data.doneDate}

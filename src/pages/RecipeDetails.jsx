@@ -94,26 +94,26 @@ function RecipeDetails({ match }) {
       ref={ divContainer }
     >
       {details && (
-        <section>
+        <section className='bg-white'>
           <img
             src={ details.strMealThumb || details.strDrinkThumb }
             alt="foto"
             width="150px"
             data-testid="recipe-photo"
-            className="recipe-photo mb-5 shadow-md shadow-slate-500"
+            className="recipe-photo mb-5 shadow-md shadow-slate-500 bg-white"
           />
-          <div className="RecipesAndIcons">
-            <div>
-              <h2 data-testid="recipe-title" className="food-title mr-2">
+          <div className="RecipesAndIcons bg-white">
+            <div className='bg-white'>
+              <h2 data-testid="recipe-title" className="food-title mr-2 bg-white">
                 {details.strMeal || details.strDrink}
               </h2>
-              <p data-testid="recipe-category" className="recipe-category ">
+              <p data-testid="recipe-category" className="recipe-category bg-white">
                 {history.location.pathname.includes('/foods')
                   ? details.strCategory
                   : details.strAlcoholic}
               </p>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col bg-white">
               <button
                 type="button"
                 onClick={ details && saveFavoriteLocalStorage }
@@ -144,10 +144,10 @@ function RecipeDetails({ match }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-center mt-5">
-            <div>
+          <div className="flex flex-col items-center mt-5 bg-white">
+            <div className='bg-white'>
               <ul className="ingredients ingrDetails mb-4">
-                <h4 className="h4-ingredients mb-3">Ingredients</h4>
+                <h4 className="h4-ingredients mb-3 bg-white">Ingredients</h4>
                 {[...strIngredient].map(
                   (ing, index, arr) => details[ing] && (
                     <li
@@ -155,7 +155,7 @@ function RecipeDetails({ match }) {
                       data-testid={ `${index}-ingredient-name-and-measure` }
                       className={ `
                     ${index === arr.length - 1 ? 'mb-3' : 'mb-1'} 
-                    hover:scale-150 transition duration-200 hover:pt-2 hover:pb-2` }
+                    hover:scale-150 transition duration-200 hover:pt-2 hover:pb-2 bg-white` }
                     >
                       {details[ing]}
                       {': '}
@@ -166,16 +166,16 @@ function RecipeDetails({ match }) {
               </ul>
             </div>
 
-            <div className="instructions rounded ">
+            <div className="instructions rounded bg-white">
               <h4 className="h4-instructions mb-3">Instructions</h4>
-              <p data-testid="instructions">
+              <p data-testid="instructions" className='bg-white'>
                 {details.strInstructions}
               </p>
             </div>
           </div>
-          <p className="h4-instructions mt-5 mb-3">Recomendations</p>
+          <p className="h4-instructions mt-5 mb-3 bg-white">Recomendations</p>
 
-          <div className="recomendacoes mt-2 ">
+          <div className="recomendacoes mt-2">
             <div className="carousel hover:text-white ">
               {recom
                 && recom.map((item, index) => (
@@ -186,7 +186,7 @@ function RecipeDetails({ match }) {
                   >
                     <p
                       data-testid={ `${index}-recomendation-title` }
-                      className=""
+                      className="bg-white"
                     >
                       {item.strMeal || item.strDrink}
                     </p>

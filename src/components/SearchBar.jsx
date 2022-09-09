@@ -27,7 +27,7 @@ function SearchBar({ clickSearch }) {
   };
 
   return (
-    <div className="searchCamp">
+    <div className="searchCamp  bg-white">
       <input
         type="text"
         data-testid="search-input"
@@ -40,15 +40,15 @@ function SearchBar({ clickSearch }) {
         px-4 py-3
         leading-tight
          text-gray-700
-          bg-gray-50
+          bg-white
            focus:bg-white border
             border-gray-200
              focus:border-gray-500
              rounded
               focus:outline-none"
       />
-      <div className="selectAndSearch">
-        <select onClick={ ({ target }) => setSearchFilter(target.value) }>
+      <div className="selectAndSearch  bg-white">
+        <select onClick={({ target }) => setSearchFilter(target.value)} className=" bg-white">
           <option value="Ingredient">Ingredient</option>
           <option value="Name">Name</option>
           <option value="First-letter">First letter</option>

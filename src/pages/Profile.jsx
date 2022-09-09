@@ -9,11 +9,11 @@ function Profile() {
   const history = useHistory();
 
   return (
-    <section className="flex-col w-screen h-screen mt-0">
+    <section className="flex-col w-screen h-screen mt-0 bg-white">
       <Header />
 
-      <div>
-        <p className="mt-24 mb-2">You are logged in as: </p>
+      <div className='bg-white'>
+        <p className="mt-24 mb-2 bg-white">You are logged in as</p>
         <h3
           data-testid="profile-email"
           className="flex justify-center container w-225 h-35

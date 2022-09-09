@@ -8,7 +8,7 @@ import store from './redux/store';
 import './App.css';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter className='bwto'>
     <Provider store={ store }>
       <Routes />
     </Provider>

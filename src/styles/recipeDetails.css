@@ -1,19 +1,22 @@
 .container {
   max-width: 100vh;
+  background-color: white;
 }
 
 .container img {
   border-radius: 4px;
+    background-color: white;
 }
 
 .container .carousel {
+    background-color: white;
   display: flex;
   height: 130px;
   margin-bottom: 30px;
   overflow-x: auto;
   scroll-behavior: smooth;
   text-align: center;
-  width: 50vh;
+  width: 360px;
 }
 
 .container .carousel::-webkit-scrollbar {
@@ -21,7 +24,7 @@
 }
 
 .container .carousel .item {
-  background-color: gainsboro;
+    background-color: white;
   border-radius: 4px;
   flex: none;
   margin: 2px;
@@ -30,6 +33,7 @@
 }
 
 .container .carousel .item .image {
+    background-color: white;
   border-radius: 16px;
   height: 70%;
   object-fit: cover;
@@ -37,6 +41,7 @@
 }
 
 .StartRecipe {
+    background-color: white;
   bottom: 0;
   height: 50px;
   position: fixed;
@@ -44,6 +49,7 @@
 }
 
 .ingrDetails {
+    background-color: white;
   align-items: center;
   flex-wrap: wrap;
   height: auto;
@@ -51,21 +57,25 @@
 }
 
 .ingrDetails li:first-child {
+    background-color: white;
   margin-top: 15px;
 }
 
 .ingrDetails li:last-child {
+    background-color: white;
   margin-bottom: 15px;
 
 }
 
 .h4-instructions {
+    background-color: white;
   font-family: sans-serif;
   font-size: 30px;
   text-align: center;
 }
 
 .instructions {
+    background-color: white;
   background-color: #e5e5e5;
   font-size: 17px;
   padding: 10px;
@@ -75,11 +85,13 @@
 .recomendacoes {
   border-radius: 4px;
   margin-bottom: 70px;
+    background-color: white;
 }
 
 .startButton {
   display: flex;
   justify-content: center;
+    background-color: white;
 }
 
 .Icons {
@@ -87,4 +99,5 @@
   display: flex;
   flex-direction: column;
   margin-top: -20px;
+    background-color: white;
 }
