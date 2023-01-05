@@ -146,7 +146,7 @@ function RecipeDetails({ match }) {
 
           <div className="flex flex-col items-center mt-5 bg-white">
             <div className='bg-white'>
-              <ul className="ingredients ingrDetails mb-4">
+              <ul className="ingredients ingrDetails mb-4 bg-white">
                 <h4 className="h4-ingredients mb-3 bg-white">Ingredients</h4>
                 {[...strIngredient].map(
                   (ing, index, arr) => details[ing] && (
@@ -155,7 +155,7 @@ function RecipeDetails({ match }) {
                       data-testid={ `${index}-ingredient-name-and-measure` }
                       className={ `
                     ${index === arr.length - 1 ? 'mb-3' : 'mb-1'} 
-                    hover:scale-150 transition duration-200 hover:pt-2 hover:pb-2 bg-white` }
+                    transition duration-200 bg-white` }
                     >
                       {details[ing]}
                       {': '}
@@ -176,7 +176,7 @@ function RecipeDetails({ match }) {
           <p className="h4-instructions mt-5 mb-3 bg-white">Recomendations</p>
 
           <div className="recomendacoes mt-2">
-            <div className="carousel hover:text-white ">
+            <div className="carousel ">
               {recom
                 && recom.map((item, index) => (
                   <div

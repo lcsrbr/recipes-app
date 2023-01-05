@@ -5,6 +5,9 @@ section {
   margin-top: 15px;
 }
 
+body {
+  background-color: #8f8a8a;
+}
 .food-title {
   font-family: Cambria , Cochin , Georgia , Times , Times New Roman , serif;
   font-size: 40px;
@@ -44,10 +47,6 @@ section {
   margin: auto;
   width: 390px;
   background-color: white;
-}
-
-* {
-  background-color: #8f8a8a;
 }
 
 .recipe-photo {

@@ -24,7 +24,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center bg-orange-300">
+    <div className="min-h-screen flex flex-col justify-center bg-orange-300 loginBg">
       <div
         className="
       bg-white
