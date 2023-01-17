@@ -66,12 +66,12 @@ function Login() {
             onChange={ ({ target }) => setEmail(target.value) }
             placeholder="Email"
           />
+          <p className= "ex">ex: mscott@dmifflin.com</p>
         </div>
 
         <div className="mb-5">
           <input
             className="
-
             apperance-none
             block w-full
              px-4
@@ -90,6 +90,7 @@ function Login() {
             onChange={ ({ target }) => setPassword(target.value) }
             placeholder="Password"
           />
+          <p className="ex">ex: doNot1234!</p>
         </div>
 
         <div className="mb-4 flex justify-center">
